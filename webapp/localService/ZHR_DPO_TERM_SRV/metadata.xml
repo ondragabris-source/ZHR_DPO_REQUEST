@@ -1,0 +1,198 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZHR_DPO_TERM_SRV" xml:lang="cs" sap:schema-version="1">
+			<EntityType Name="Term" sap:content-version="1">
+				<Key><PropertyRef Name="TermId"/></Key><Property Name="TermTime" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Zaèátek termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Proposal" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="PROPOSAL" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermDate" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Termín projednání" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermSp" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Termín odevzdání SP" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TimeSp" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Èas SP" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Final" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="FINAL" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="TermOdbory" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Odevzdání Odborùm" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Location" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="DPO Místo" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TimeOdbory" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Èas ODB" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermZarad" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Podklady na program" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="UnionOrg" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Odborová Organizace"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="DPO Status" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="TimeZarad" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Èas odevzdání podkla" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="StatusDesc" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Process" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Proces" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ProcessDesc" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis procesu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="TermRequestSet" Relationship="ZHR_DPO_TERM_SRV.TermTermRequest" FromRole="FromRole_TermTermRequest"
+					ToRole="ToRole_TermTermRequest"/></EntityType>
+			<EntityType Name="Status" sap:content-version="1">
+				<Key><PropertyRef Name="StatusTerm"/></Key><Property Name="StatusTerm" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status RFP"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="MailContacts" sap:content-version="1">
+				<Key><PropertyRef Name="Mails"/></Key><Property Name="Mails" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="StatusRequest" sap:content-version="1">
+				<Key><PropertyRef Name="Status"/></Key><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status RFP" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="EmailHeaderFooter" sap:content-version="1">
+				<Key><PropertyRef Name="HeaderText"/><PropertyRef Name="FooterText"/></Key><Property Name="HeaderText" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="FooterText" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="TermRequest" sap:content-version="1">
+				<Key><PropertyRef Name="TermId"/><PropertyRef Name="DpoRequest"/></Key><Property Name="Erdat" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Založeno dne" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="HrbpUname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Jméno uživatele"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="HrbrpFullName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Kompletní jméno"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Orgeh" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Org.jednotka" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="NotifStatus" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status RFP"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Ordernr" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Poøadí žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Creator" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Zastupovaný" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CreatorFullName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Kompletní jméno"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="NotifStatusDescr" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Duration" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Doba projendání"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ResultTerm" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Stanovisko"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Short" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Zkratka objektu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DpoRequest" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DpoReqFull" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="StatusDescr" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Název Žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ReqTime" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Èas" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="AddRequest" sap:content-version="1">
+				<Key><PropertyRef Name="TermId"/></Key><Property Name="Erdat" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Založeno dne" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DpoRequest" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DpoReqFull" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="StatusDescr" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Název Žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Short" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Zkratka objektu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="TermReturn" sap:content-version="1">
+				<Key><PropertyRef Name="TermId"/></Key><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ReturnCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Návratový kód"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="NextStatus" sap:content-version="1">
+				<Key><PropertyRef Name="TermId"/></Key><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermNextStatus" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status RFP"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermNextStatusDesc" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="NotifAttch" m:HasStream="true" sap:is-thing-type="true" sap:content-version="1">
+				<Key><PropertyRef Name="DpoRequest"/></Key><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DpoRequest" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID žádosti"/><Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Jméno uživatele"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DocType" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Typ dokumentu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DocId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="ID dok" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ObjectId" Type="Edm.String" Nullable="false" MaxLength="17" sap:unicode="false" sap:label="SAPoffice: ID objektu SAPoffice"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Filename" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="FILENAME" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Mimetype" Type="Edm.String" Nullable="false" MaxLength="128" sap:unicode="false" sap:label="Typ MIME" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="STATUS" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ValidateAc" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="TRUE" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Posit" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Text" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Link" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="LINK" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="NotifAttchDir" sap:content-version="1">
+				<Key><PropertyRef Name="DpoRequest"/><PropertyRef Name="Guid"/></Key><Property Name="DpoRequest" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Guid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Char" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Jméno uživatele"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DocType" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Typ dokumentu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DocId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="ID dok" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ObjectId" Type="Edm.String" Nullable="false" MaxLength="17" sap:unicode="false" sap:label="SAPoffice: ID objektu SAPoffice"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Filename" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="FILENAME" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Mimetype" Type="Edm.String" Nullable="false" MaxLength="128" sap:unicode="false" sap:label="Typ MIME" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="TCA Status" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ValidateAc" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="TRUE" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Posit" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Text" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Link" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="LINK" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="DpoRequestID" sap:content-version="1">
+				<Key><PropertyRef Name="DpoRequest"/></Key><Property Name="ReturnCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Návratový kód"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="DpoRequest" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="AuthStruc" sap:content-version="1">
+				<Key><PropertyRef Name="Role"/></Key><Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Jméno uživatele"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Role" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Role" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestDeputy" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Umožnit zastupování"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestNextStep" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Další krok"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestDateChange" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Zmìna termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermDisplay" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Aplikace Termíny"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermCreate" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Založení termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="DpoNotification" sap:content-version="1">
+				<Key><PropertyRef Name="Request"/></Key><Property Name="DpoReqFull" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="NotifStatus" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="NotifStatusDesc" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="TermId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID DPO termínu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID žádosti" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestStatus" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Název Žádosti"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RequestStatusDesc" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Seqnr" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="È.zázn.IT" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Jméno uživatele"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="UnameFull" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Kompletní jméno"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Datum" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Datum" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Time" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Èas" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Role" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Role" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RoleDescr" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Popis role"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="ResultHist" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Stanovisko"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="NotifAttchDirSet" Relationship="ZHR_DPO_TERM_SRV.DpoNotificationNotifAttchDir"
+					FromRole="FromRole_DpoNotificationNotifAttchDir" ToRole="ToRole_DpoNotificationNotifAttchDir"/></EntityType>
+			<EntityType Name="StatusNotif" sap:content-version="1">
+				<Key><PropertyRef Name="Status"/></Key><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Status RFP" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="StatusNum" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Poøadí statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Popis RFP Statusu"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="WordTemplateLink" sap:content-version="1">
+				<Key><PropertyRef Name="DpoRequest"/><PropertyRef Name="LINK"/></Key><Property Name="DpoRequest" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="LINK" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<Association Name="DpoNotificationNotifAttchDir" sap:content-version="1"><End Type="ZHR_DPO_TERM_SRV.DpoNotification" Multiplicity="1" Role="FromRole_DpoNotificationNotifAttchDir"/><End Type="ZHR_DPO_TERM_SRV.NotifAttchDir" Multiplicity="*" Role="ToRole_DpoNotificationNotifAttchDir"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_DpoNotificationNotifAttchDir"><PropertyRef Name="Request"/><PropertyRef Name="TermId"/></Principal>
+					<Dependent Role="ToRole_DpoNotificationNotifAttchDir"><PropertyRef Name="DpoRequest"/><PropertyRef Name="TermId"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="TermTermRequest" sap:content-version="1"><End Type="ZHR_DPO_TERM_SRV.Term" Multiplicity="1" Role="FromRole_TermTermRequest"/><End Type="ZHR_DPO_TERM_SRV.TermRequest" Multiplicity="*" Role="ToRole_TermTermRequest"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_TermTermRequest"><PropertyRef Name="TermId"/></Principal>
+					<Dependent Role="ToRole_TermTermRequest"><PropertyRef Name="TermId"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZHR_DPO_TERM_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="TermSet" EntityType="ZHR_DPO_TERM_SRV.Term" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="StatusSet" EntityType="ZHR_DPO_TERM_SRV.Status" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="MailContactsSet" EntityType="ZHR_DPO_TERM_SRV.MailContacts" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="StatusRequestSet" EntityType="ZHR_DPO_TERM_SRV.StatusRequest" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="EmailHeaderFooterCollection" EntityType="ZHR_DPO_TERM_SRV.EmailHeaderFooter" sap:content-version="1"/><EntitySet Name="TermRequestSet" EntityType="ZHR_DPO_TERM_SRV.TermRequest" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="AddRequestSet" EntityType="ZHR_DPO_TERM_SRV.AddRequest" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="TermReturnCollection" EntityType="ZHR_DPO_TERM_SRV.TermReturn" sap:content-version="1"/><EntitySet Name="NextStatusSet" EntityType="ZHR_DPO_TERM_SRV.NextStatus" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="NotifAttchSet" EntityType="ZHR_DPO_TERM_SRV.NotifAttch" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="NotifAttchDirSet" EntityType="ZHR_DPO_TERM_SRV.NotifAttchDir" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="DpoRequestIDCollection" EntityType="ZHR_DPO_TERM_SRV.DpoRequestID" sap:content-version="1"/><EntitySet Name="AuthStrucSet" EntityType="ZHR_DPO_TERM_SRV.AuthStruc" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="DpoNotificationSet" EntityType="ZHR_DPO_TERM_SRV.DpoNotification" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="StatusNotifSet" EntityType="ZHR_DPO_TERM_SRV.StatusNotif" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="WordTemplateLinkSet" EntityType="ZHR_DPO_TERM_SRV.WordTemplateLink" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+				<AssociationSet Name="TermTermRequestSet" Association="ZHR_DPO_TERM_SRV.TermTermRequest" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="TermSet" Role="FromRole_TermTermRequest"/><End EntitySet="TermRequestSet" Role="ToRole_TermTermRequest"/></AssociationSet>
+				<AssociationSet Name="DpoNotificationSetNotifAttchDirSetSet" Association="ZHR_DPO_TERM_SRV.DpoNotificationNotifAttchDir"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="DpoNotificationSet" Role="FromRole_DpoNotificationNotifAttchDir"/><End EntitySet="NotifAttchDirSet" Role="ToRole_DpoNotificationNotifAttchDir"/></AssociationSet>
+				<FunctionImport Name="AddRequestToTerm" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="DpoRequest" Type="Edm.String" Mode="In"/><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport>
+				<FunctionImport Name="RemoveRequestFromTerm" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="DpoRequest" Type="Edm.String" Mode="In"/><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport>
+				<FunctionImport Name="CreateTerm" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="DateFrom" Type="Edm.DateTime" Mode="In" Precision="0"/><Parameter Name="DateTo" Type="Edm.DateTime" Mode="In" Precision="0"/><Parameter Name="Frequency" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="Location" Type="Edm.String" Mode="In" MaxLength="30"/></FunctionImport>
+				<FunctionImport Name="GetMailContacts" ReturnType="ZHR_DPO_TERM_SRV.MailContacts" EntitySet="MailContactsSet" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="StatusTerm" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="button_press" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport><FunctionImport Name="GetEmailHeaderAndFooter" ReturnType="ZHR_DPO_TERM_SRV.EmailHeaderFooter" EntitySet="EmailHeaderFooterCollection"
+					m:HttpMethod="GET" sap:action-for="ZHR_DPO_TERM_SRV.EmailHeaderFooter"/>
+				<FunctionImport Name="SaveTerm" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport>
+				<FunctionImport Name="NextStep" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="StatusTermNext" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport>
+				<FunctionImport Name="DeleteTerm" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport>
+				<FunctionImport Name="MultiChangeStatus" ReturnType="ZHR_DPO_TERM_SRV.TermReturn" EntitySet="TermReturnCollection" m:HttpMethod="GET"
+					sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="TermId" Type="Edm.String" Mode="In" MaxLength="10"/></FunctionImport>
+				<FunctionImport Name="NotificationToRequest" ReturnType="ZHR_DPO_TERM_SRV.DpoRequestID" EntitySet="DpoRequestIDCollection"
+					m:HttpMethod="GET" sap:action-for="ZHR_DPO_TERM_SRV.Term"><Parameter Name="StatusRequest" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="NotifStatus" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="DpoRequest" Type="Edm.String" Mode="In" MaxLength="10"/><Parameter Name="Clarification" Type="Edm.String" Mode="In" MaxLength="255"/></FunctionImport>
+			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZHR_DPO_TERM_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZHR_DPO_TERM_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,412 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "ZHR_DPO_REQUEST",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "servicecatalog.connectivityComponentForManifest",
+            "version": "0.0.0",
+            "toolsId": "096c40de-38b6-4081-9f9e-e661f656c202"
+        },
+        "dataSources": {
+            "ZHR_DPO_REQUEST01_SRV": {
+                "uri": "/sap/opu/odata/sap/ZHR_DPO_REQUEST01_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZHR_DPO_REQUEST01_SRV/metadata.xml"
+                }
+            },
+            "ZHR_DPO_TERM_SRV": {
+                "uri": "/sap/opu/odata/sap/ZHR_DPO_TERM_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZHR_DPO_TERM_SRV/metadata.xml"
+                }
+            },
+            "ZHR_DPO_AGR_SRV": {
+                "uri": "/sap/opu/odata/sap/ZHR_DPO_AGR_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZHR_DPO_AGR_SRV/metadata.xml"
+                }
+            },
+            "ZHR_DPO_A004_SRV": {
+                "uri": "/sap/opu/odata/sap/ZHR_DPO_A004_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZHR_DPO_A004_SRV/metadata.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "ZHR_DPO_REQUEST.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "Appp"
+        },
+        "dependencies": {
+            "minUI5Version": "1.84.1",
+            "libs": {
+                "sap.f": {
+                    "minVersion": ""
+                },
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ZHR_DPO_REQUEST.i18n.i18n"
+                }
+            },
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "ZHR_DPO_REQUEST01_SRV",
+                "preload": true
+            },
+            "TermService": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "ZHR_DPO_TERM_SRV",
+                "preload": true
+            },
+            "AgrService": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "ZHR_DPO_AGR_SRV",
+                "preload": true
+            },
+            "A004": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "ZHR_DPO_A004_SRV",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "ZHR_DPO_REQUEST.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "master",
+                    "pattern": "",
+                    "target": [
+                        "Master"
+                    ]
+                },
+                {
+                    "name": "substitute",
+                    "pattern": "substitute",
+                    "target": [
+                        "Substitute"
+                    ]
+                },
+                {
+                    "name": "terms",
+                    "pattern": "terms/{Refresh}",
+                    "target": [
+                        "Terms"
+                    ]
+                },
+                {
+                    "name": "agreements",
+                    "pattern": "agreements/{Refresh}",
+                    "target": [
+                        "Agreements"
+                    ]
+                },
+                {
+                    "name": "tasks",
+                    "pattern": "tasks/{Refresh}",
+                    "target": [
+                        "Tasks"
+                    ]
+                },
+                {
+                    "name": "preview",
+                    "pattern": "preview/{Equnr}",
+                    "target": [
+                        "Master"
+                    ]
+                },
+                {
+                    "name": "create",
+                    "pattern": "create/{RequestId}/{Refresh}",
+                    "target": [
+                        "CreateUpdateReq"
+                    ]
+                },
+                {
+                    "name": "update",
+                    "pattern": "update/{RequestId}/{Refresh}",
+                    "target": [
+                        "CreateUpdateReq"
+                    ]
+                },
+                {
+                    "name": "detail",
+                    "pattern": "detail/{RequestId}/{Refresh}",
+                    "target": [
+                        "Detail"
+                    ]
+                },
+                {
+                    "name": "detailfromtasks",
+                    "pattern": "detailfromtasks/{RequestId}/{Refresh}",
+                    "target": [
+                        "Detail"
+                    ]
+                },
+                {
+                    "name": "updateTerm",
+                    "pattern": "updateterm/{TermId}/{Refresh}",
+                    "target": [
+                        "UpdateTerm"
+                    ]
+                },
+                {
+                    "name": "detailTerm",
+                    "pattern": "detailterm/{TermId}/{Refresh}",
+                    "target": [
+                        "DetailTerm"
+                    ]
+                },
+                {
+                    "name": "textsOfRequest",
+                    "pattern": "texts/{RequestId}/{Refresh}",
+                    "target": [
+                        "TextsOfRequest"
+                    ]
+                },
+                {
+                    "name": "writingFromDetail",
+                    "pattern": "writing/{RequestId}/{Refresh}",
+                    "target": [
+                        "Writing"
+                    ]
+                },
+                {
+                    "name": "writingFromTerm",
+                    "pattern": "writing/{RequestId}/{Refresh}",
+                    "target": [
+                        "Writing"
+                    ]
+                },
+                {
+                    "name": "createAgreement",
+                    "pattern": "createAagreement/{AgreementId}/{RequestId}/{Refresh}",
+                    "target": [
+                        "CreateAgreement"
+                    ]
+                },
+                {
+                    "name": "a004fromdetail",
+                    "pattern": "a004fromdetail/{RequestId}/{Refresh}",
+                    "target": [
+                        "A004"
+                    ]
+                },
+                {
+                    "name": "a004fromcreate",
+                    "pattern": "a004fromcreate/{RequestId}/{Refresh}",
+                    "target": [
+                        "A004"
+                    ]
+                },
+                {
+                    "name": "detailAgreement",
+                    "pattern": "detailagreement/{AgreementId}/{Refresh}/{RequestId}",
+                    "target": [
+                        "DetailAgreement"
+                    ]
+                },
+                {
+                    "name": "updateAgreement",
+                    "pattern": "updateagreement/{AgreementId}/{Refresh}/{RequestId}",
+                    "target": [
+                        "UpdateAgreement"
+                    ]
+                }
+            ],
+            "targets": {
+                "Master": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Master",
+                    "viewName": "Master"
+                },
+                "Substitute": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Substitute",
+                    "viewName": "Substitute"
+                },
+                "Terms": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Terms",
+                    "viewName": "Terms"
+                },
+                "CreateUpdateReq": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Create",
+                    "viewName": "Create"
+                },
+                "Detail": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Detail",
+                    "viewName": "Detail"
+                },
+                "DetailTerm": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "DetailTerm",
+                    "viewName": "DetailTerm"
+                },
+                "UpdateTerm": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "CreateTerm",
+                    "viewName": "CreateTerm"
+                },
+                "TextsOfRequest": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "TextsOfRequest",
+                    "viewName": "TextsOfRequest"
+                },
+                "Writing": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Writing",
+                    "viewName": "Writing"
+                },
+                "Agreements": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Agreements",
+                    "viewName": "Agreements"
+                },
+                "Tasks": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "Tasks",
+                    "viewName": "Tasks"
+                },
+                "DetailAgreement": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "DetailAgreement",
+                    "viewName": "DetailAgreement"
+                },
+                "UpdateAgreement": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "CreateAgreement",
+                    "viewName": "CreateAgreement"
+                },
+                "CreateAgreement": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "CreateAgreement",
+                    "viewName": "CreateAgreement"
+                },
+                "A004": {
+                    "viewType": "XML",
+                    "transition": "show",
+                    "clearControlAggregation": false,
+                    "viewId": "A004",
+                    "viewName": "A004"
+                }
+            }
+        },
+        "flexBundle": false
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/zhr_dpo_request/webapp",
+        "_version": "1.1.0"
+    },
+    "sap.platform.hcp": {
+        "uri": "webapp",
+        "_version": "1.1.0"
+    }
+}
