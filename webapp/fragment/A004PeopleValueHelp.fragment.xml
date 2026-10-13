@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>search}" items="{path: 'A004>/EmployeeSet', events: {dataReceived: '.onNewPersonsLoaded'}}" search=".onValuePersonHelpSearch"
+		confirm=".onValueHelpPersonChosen" cancel=".onValueHelpClose" >
+		
+		<ObjectListItem title="{A004>Fullname}" type="Active" press="onListItemPress"
+			 numberUnit="{A004>Pernr}">
+			<ObjectAttribute text="{A004>UnitShort}"/>
+			<ObjectAttribute text="{A004>Role}"/>
+		</ObjectListItem>
+	</SelectDialog>
+</core:FragmentDefinition>
+<!--<StandardListItem iconDensityAware="false" iconInset="false" title="{Fullname}" description="{UnitShort}" info="{Pernr}"/>-->

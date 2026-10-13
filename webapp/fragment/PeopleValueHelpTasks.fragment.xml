@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>search}" items="{TermService>/RequestForkSet}" search=".onValuePersonHelpSearch"
+		confirm=".onValueHelpPersonChosen" cancel=".onValueHelpClose">
+		
+		<ObjectListItem title="{TermService>NameFull}" type="Active" press="onListItemPress"
+			 numberUnit="{TermService>Pernr}">
+			<ObjectAttribute text="{TermService>UnitShort}"/>
+			<ObjectAttribute text="{TermService>Role}"/>
+		</ObjectListItem>
+	</SelectDialog>
+</core:FragmentDefinition>
+<!--<StandardListItem iconDensityAware="false" iconInset="false" title="{Fullname}" description="{UnitShort}" info="{Pernr}"/>-->

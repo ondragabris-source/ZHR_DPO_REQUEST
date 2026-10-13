@@ -1,0 +1,149 @@
+<mvc:View controllerName="ZHR_DPO_REQUEST.controller.Agreements" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:table="sap.ui.table"
+	xmlns="sap.m" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants"
+	xmlns:form="sap.ui.layout.form" xmlns:uxap="sap.uxap" busyIndicatorDelay="0">
+	<f:FlexibleColumnLayout id="flexLayoutMaster" backgroundDesign="Translucent" layout="{appModel>/layout}">
+		<!--layout="TwoColumnsBeginExpanded"-->
+		<f:beginColumnPages>
+			<f:DynamicPage fitContent="true" headerExpanded="true" showFooter="false" toggleHeaderOnTitleClick="true" class="sapUiNoContentPadding">
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<Title level="H2" titleStyle="H4" text="{i18n>agreementsMasterTittle}"/>
+						</f:heading>
+						<f:actions>
+							<ToolbarSpacer/>
+							<Button text="{i18n>requests}" type="Emphasized" press="onRequestPress"/>
+							<Label text="{i18n>whoIRepresentative}"/>
+							<ComboBox editable="false" value="{appModel>/Deputy/fullname}" change="onCreaterChange"></ComboBox>
+						</f:actions>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:header>
+					<f:DynamicPageHeader pinnable="true">
+						<f:content>
+							<fb:FilterBar id="filterBar" clear="onResetPress" search="onFilter" filterBarExpanded="true" showClearButton="false" showClearOnFB="true"
+								showGoOnFB="true" showRestoreButton="false" showRestoreOnFB="false" showFilterConfiguration="false" useToolbar="false">
+								<fb:filterGroupItems>
+									<fb:FilterGroupItem groupName="G1" name="Uname" label="uname" mandatory="false" partOfCurrentVariant="true" visibleInFilterBar="false">
+										<fb:control>
+											<Input id="CreatorUname" enabled="false"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="Name" label="{i18n>agreementName}" mandatory="false" partOfCurrentVariant="true" visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input1"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="TemplateCode" label="{i18n>template}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<ComboBox change="onSearch" items="{ path : '/TemplateSet', filters : [ { path : 'TemplateCode', operator : 'Contains', value1 : 'DH'} ] }">
+												<core:ListItem key="{TemplateCode}" text="{TemplateDesc}"/>
+											</ComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="StatusDescr" label="{i18n>agreementStatus}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<ComboBox items="{path: 'AgrService>/StatusSet'}" change="onSearch">
+												<core:ListItem key="{AgrService>StatusAgreement}" text="{AgrService>Description}"/>
+											</ComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="AgreementDate" label="{i18n>datumUcOd}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<DateRangeSelection placeholder="{i18n>enterDateRange}" change="onSearch" class="sapUiSmallMarginBottom"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="AgreementDateTo" label="{i18n>datumUcDo}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<DateRangeSelection placeholder="{i18n>enterDateRange}" change="onSearch" class="sapUiSmallMarginBottom"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="DpoRequestFull" label="{i18n>requestNumber}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input2"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="EffForDep" label="{i18n>effForDep}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input3"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+								</fb:filterGroupItems>
+							</fb:FilterBar>
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<table:Table busyIndicatorDelay="0" id="table" 
+						rows="{ path : 'AgrService>/AgreementSet', events: {dataReceived: '.onDataReceivedMasterTableDoNothing', dataRequested: '.onDataRequestedMasterTable'} }"
+						selectionMode="None" visibleRowCountMode="Auto" rowSelectionChange="onRowSelectionChange" >
+						<table:extension>
+							<OverflowToolbar>
+								<ToolbarSpacer/>
+							</OverflowToolbar>
+						</table:extension>
+						<table:columns>
+							<table:Column minWidth="120">
+								<Label text="{i18n>agreementName}"/>
+								<table:template>
+									<Text text="{AgrService>Name}"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="120">
+								<Label text="{i18n>template}"/>
+								<table:template>
+									<Text text="{AgrService>TemplateDesc}"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="120">
+								<Label text="{i18n>agreementStatus}"/>
+								<table:template>
+									<Text text="{AgrService>StatusDescr}"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="100">
+								<Label text="{i18n>datumUcOd}"/>
+								<table:template>
+									<Text text="{path:'AgrService>AgreementDate', type:'sap.ui.model.odata.type.Date'}"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="200">
+								<Label text="{i18n>datumUcDo}"/>
+								<table:template>
+									<Text text="{path:'AgrService>AgreementDateTo', type:'sap.ui.model.odata.type.Date'}"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="200">
+								<Label text="{i18n>requestNumber}"/>
+								<table:template>
+									<Text text="{AgrService>DpoRequestFull}"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="200">
+								<Label text="{i18n>effForDep}"/>
+								<table:template>
+									<Text text="{AgrService>EffForDep}"/>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</f:content>
+			</f:DynamicPage>
+		</f:beginColumnPages>
+		<f:midColumnPages>
+			<Page id="detail" showFooter="true" showHeader="false">
+				<content></content>
+				<footer>
+					<core:Fragment fragmentName="ZHR_DPO_REQUEST.lib.fragment.PreviewFooter" type="XML"/>
+				</footer>
+			</Page>
+		</f:midColumnPages>
+		<f:endColumnPages></f:endColumnPages>
+	</f:FlexibleColumnLayout>
+</mvc:View>

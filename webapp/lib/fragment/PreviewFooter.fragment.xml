@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+
+>
+		<OverflowToolbar visible="{= !${appModel>/edit}}">
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://edit"
+							type="Emphasized"
+							text="Editovat"
+							press="onPressEdit"
+						/>
+						<Button
+							icon="sap-icon://decline"
+							text="Zavøít"
+							press="onPressClose"
+						/>
+					</OverflowToolbar>
+	
+	</core:FragmentDefinition>

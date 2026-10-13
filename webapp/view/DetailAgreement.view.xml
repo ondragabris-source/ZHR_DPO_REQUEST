@@ -1,0 +1,129 @@
+<mvc:View displayBlock="true" controllerName="ZHR_DPO_REQUEST.controller.DetailAgreement" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"
+	xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m" xmlns:table="sap.ui.table">
+	<Shell id="shell" appWidthLimited="false">
+		<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="true" toggleHeaderOnTitleClick="true" upperCaseAnchorBar="false">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:heading>
+						<VBox>
+							<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+							<Title text="{i18n>agreementDetail}" wrapping="true"/>
+						</VBox>
+					</uxap:heading>
+					<uxap:actions>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>edit}" press="onUpdatePress" type="Emphasized" hideText="false" visible="{ path : 'appModel>/DetailAgreementSettings/AgreementEditO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>downloadTemplate}" press="onTemplateClick" type="Emphasized" hideText="false" visible="{ path : 'appModel>/DetailAgreementSettings/AgreementEditO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>delete}" press="onDeletePress" type="Emphasized" hideText="false" visible="{ path : 'appModel>/DetailAgreementSettings/AgreementEditO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton type="Emphasized" text="{i18n>nextStep}" press="onNextStepAgreementDialog" hideText="false" visible="{ path : 'appModel>/DetailAgreementSettings/AgreementEditO', formatter : '.formatter.getBooleanFromString'}"/>
+					</uxap:actions>
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<uxap:headerContent>
+				<FlexBox fitContainer="true">
+					<VBox class="sapUiLargeMarginEnd">
+						<ObjectStatus title="{i18n>agreementId}" text="{AgrService>DpoAgreement}" visible="false"/>
+						<ObjectStatus title="{i18n>agreementName}" text="{AgrService>Name}"/>
+						<ObjectStatus class="sapMObjectStatusLarge" title="{i18n>agreementStatus}" text="{AgrService>StatusDescr}" state="Information"/>
+					</VBox>
+				</FlexBox>
+			</uxap:headerContent>
+			<uxap:sections>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>basicInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<VBox class="sapUiSmallMargin">
+								<f:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+									<f:content>
+										<Label text="{i18n>datumUcOd}"/>
+										<Text text="{path:'AgrService>AgreementDateTo', type:'sap.ui.model.odata.type.Date'}"/>
+										
+										<Label text="{i18n>datumUcDo}"/>
+										<Text text="{path:'AgrService>AgreementDate', type:'sap.ui.model.odata.type.Date'}"/>
+										
+										<Label text="{i18n>agreementStatus}"/>
+										<Text text="{AgrService>StatusDescr}"/>
+										
+										<Label text="{i18n>agreementName}"/>
+										<Text text="{AgrService>Name}"/>
+										
+										<Label text="{i18n>effForDep}"/>
+										<Text text="{AgrService>EffForDep}"/>
+										
+										<Label text="{i18n>template}"/>
+										<Text text="{AgrService>TemplateDesc}"/>
+										
+										<Label text="{i18n>requestNumber}"/>
+										<Text text="{AgrService>DpoRequestFull}"/>
+									</f:content>
+								</f:SimpleForm>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>attachments}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<UploadCollection id="UploadCollection" multiple="true" sameFilenameAllowed="true" instantUpload="true"
+								noDataDescription=" " change="onChange" 
+								fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+								uploadComplete="onUploadComplete" validationSuccess="beforeUploadStarts" beforeUploadStarts="onBeforeUploadStarts" uploadEnabled="false" uploadButtonInvisible="true"
+								uploadUrl="/sap/opu/odata/sap/ZHR_DPO_AGR_SRV/AgreementAttchSet" items="{AgrService>AgreementAttchDirSet}">
+								<items>
+									<UploadCollectionItem documentId="{AgrService>DocId}" fileName="{AgrService>Filename}" mimeType="{AgrService>Mimetype}" url="{AgrService>Link}" enableEdit="false" visibleEdit="false" visibleDelete="false" enableDelete="false"/>
+								</items>
+							</UploadCollection>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>historyOfSteps}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<table:Table busyIndicatorDelay="0" id="HistoryTable" selectionMode="None" rows="{path: 'AgrService>AgreementHistorySet', events: {dataReceived: '.onDataReceivedAgreementHistoryTable'}}"
+								rowSelectionChange="onRowSelectionChange">
+								<table:columns>
+									<table:Column minWidth="100">
+										<Label text="{i18n>name}"/>
+										<table:template>
+											<Text text="{AgrService>NameFull}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="200">
+										<Label text="{i18n>dateOfChange}"/>
+										<table:template>
+											<Text text="{ path : 'AgrService>Datum', formatter : '.formatter.formateDateToString'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>time}"/>
+										<table:template>
+											<Text text="{ path : 'AgrService>Time', formatter : '.formatter.formateTimeToString'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>role}"/>
+										<table:template>
+											<Text text="{AgrService>RoleDesc}" tooltip="{Clarification}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>action}"/>
+										<table:template>
+											<Link text="{AgrService>Clarification}" tooltip="{AgrService>Clarification}" class="customlink"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>status}"/>
+										<table:template>
+											<Text text="{AgrService>NextStatusDesc}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+	</Shell>
+</mvc:View>

@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog showHeader="false" id="CreateA004Dialog">
+		<VBox class="sapUiSmallMargin">
+			<f:SimpleForm editable="true" layout="ColumnLayout" title="{i18n>Creation}">
+				<f:content>
+					<Label text="{i18n>typeOfRow}" />
+					<ComboBox items="{path: 'A004>/ItemTypeSet', sorter: [ { path: 'TypeOrder', descending: 'false', group: false } ]}" required="true" selectedKey="{createModel>/AttachItemType}" >
+						<core:Item key="{A004>A004it}" text="{A004>Description}"/>
+					</ComboBox>
+					<Label text="DpoRequest" visible="false"/>
+					<Input value="{createModel>/DpoRequest}" visible="false" required="true"/>
+					<Label text="{i18n>Pernr}"/>
+					<Input value="{ path : 'createModel>/Pernr', formatter : '.formatter.removeLeadingZeros'}" change="onChange1" required="true" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onPeopleValueHelpRequest"/>
+					<Label text="{i18n>Fm03}"/>
+					<Input value="{createModel>/Fm03}" editable="true" id="pom3" required="true" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onFmValueHelpRequest"/>
+					<Label text="Found Person" visible="false"/>
+					<Input value="GetFmByPernrWillBeChanged" editable="false" required="true" id="pom" visible="false"/>
+					<Label visible="true" text="{i18n>TerminZruseni}" />
+					<DatePicker editable="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}" required="true" value="{path: 'createModel>/TerminZruseni', formatOptions: {pattern: 'yyyyMMdd', strictParsing: true}}" valueFormat="yyyyMMdd" placeholder=" "/>
+					<Label text="{i18n>ReseniNavrh}"/>
+					<Input maxLength="255" editable="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}" required="true" value="{createModel>/ReseniNavrh}"/>
+					<Label text="{i18n>JmenoPrijmeni03}"/>
+					<Input value="{createModel>/JmenoPrijmeni03}" editable="false" required="true" id="pom1"/>
+					<Label text="{i18n>NazevPozice03}"/>
+					<Input value="{createModel>/NazevPozice03}" editable="false" required="true" id="pom4"/>
+					<Label text="{i18n>Stredisko03}"/>
+					<Input value="{createModel>/Stredisko03}" editable="false" required="true" id="pom2"/>
+					
+					<Label text="{i18n>Utvar03}"/>
+					<Input value="{createModel>/Utvar03}" editable="false" required="true" id="pom5"/>
+					
+					
+					<Label text="{i18n>Cinnosti}" />
+					<Input maxLength="255" editable="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}" required="true" value="{createModel>/Cinnosti}"/>
+					<Label text="{i18n>Procent}" />
+					<Input maxLength="120" editable="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}" required="true" value="{createModel>/Procent}"/>
+					<Label text="{i18n>Opatreni}" />
+					<Input maxLength="255" editable="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}" required="true" value="{createModel>/Opatreni}"/>
+					<Label text="{i18n>OpatreniDetail}" />
+					<Input maxLength="255" editable="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}" required="true" value="{createModel>/OpatreniDetail}"/>
+					<Label text="{i18n>ZahajeniProjednani}" />
+					<DatePicker value="{path: 'createModel>/ZahajeniProjednani', formatOptions: {pattern: 'yyyyMMdd', strictParsing: true}}" valueFormat="yyyyMMdd" placeholder=" " visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}" editable="true"/>
+					<Label text="{i18n>DoplnInf}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}"/>
+					<Input value="{createModel>/DoplnInf}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<Label text="{i18n>StavProjednaniFm}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<Input value="{createModel>/StavProjednaniFm}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<Label text="{i18n>NavrhZruseniFm}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<DatePicker value="{path: 'createModel>/NavrhZruseniFm', formatOptions: {pattern: 'yyyyMMdd', strictParsing: true}}" valueFormat="yyyyMMdd" placeholder=" " visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}" editable="true"/>
+					<Label text="{i18n>OdsouhlReseni}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<Input value="{createModel>/OdsouhlReseni}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<Label text="{i18n>UkonceniProj}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+					<Input value="{createModel>/UkonceniProj}" visible="{ parts: [ {path: 'appModel>/A004Settings/ExtEditFl'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case2'}"/>
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<beginButton>
+			<Button text="{i18n>save}" press="onCreateConfirmPress"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onDestroyDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

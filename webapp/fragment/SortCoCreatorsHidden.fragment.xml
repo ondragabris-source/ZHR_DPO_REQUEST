@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:dnd="sap.ui.core.dnd">
+	<Dialog title="{i18n>dragAndDrop}" showHeader="false">
+		<Table id="SortCoCreatorsHidden" mode="SingleSelectMaster" growing="false" growingThreshold="10"
+			beforeOpenContextMenu="onBeforeOpenContextMenu"
+			items="{path: 'OtherApproversSet', sorter: {path:'Ordernr', descending:false}, filters : [ { path : 'RoleKey', operator : 'EQ', value1 : 'ZAD_NEXT'} ]}"
+			noDataText="No Data">
+			<contextMenu>
+				<Menu>
+					<MenuItem text="Move up" press="moveUp"/>
+					<MenuItem text="Move down" press="moveDown"/>
+				</Menu>
+			</contextMenu>
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="{i18n>dragAndDrop}"/>
+					<ToolbarSpacer/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column>
+					<Text text="{i18n>orderNr}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>name}"/>
+				</Column>
+				<Column hAlign="End">
+					<Text text="{i18n>DZC}"/>
+				</Column>
+				<Column hAlign="End">
+					<Text text="{i18n>organizationalUnit}"/>
+				</Column>
+				<Column hAlign="End">
+					<Text text="{i18n>role}"/>
+				</Column>
+				<Column hAlign="End">
+					<Text text="{i18n>email}"/>
+				</Column>
+			</columns>
+			<dragDropConfig>
+				<dnd:DragInfo groupName="selected2available" sourceAggregation="items"/>
+				<dnd:DropInfo groupName="available2selected" targetAggregation="items" dropPosition="Between" drop="onDropSelectedProductsTable"/>
+				<dnd:DragDropInfo sourceAggregation="items" targetAggregation="items" dropPosition="Between" drop="onDropSelectedProductsTable"/>
+			</dragDropConfig>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{Ordernr}" wrapping="false"/>
+						<Text text="{NameFull}" wrapping="false"/>
+						<Text text="{Uname}"/>
+						<Text text="{Department}" wrapping="false"/>
+						<Text text="{Role}" wrapping="false"/>
+						<Text text="{Email}" wrapping="false"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<beginButton>
+			<Button text="{i18n>save}" press="onSortingSuccess"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onCloseDialogResetChanges"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

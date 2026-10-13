@@ -1,0 +1,1 @@
+sap.ui.define(["sap/m/ColumnListItem"],function(e){"use strict";return e.extend("ZHR_DPO_REQUEST.lib.controls.m.ValueHelpItem",{renderer:{},metadata:{},isSelectable:function(){return false;this.addStyleClass("disabledStyle")}})});

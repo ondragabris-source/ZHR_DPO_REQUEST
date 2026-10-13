@@ -1,0 +1,160 @@
+<mvc:View displayBlock="true" controllerName="ZHR_DPO_REQUEST.controller.DetailTerm" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"
+	xmlns:l="sap.ui.layout" xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:table="sap.ui.table" xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m">
+	<Shell id="shell" appWidthLimited="false">
+		<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="true" toggleHeaderOnTitleClick="true" upperCaseAnchorBar="false">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:heading>
+						<VBox>
+							<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+							<Title text="{i18n>termDetail}" wrapping="true"/>
+						</VBox>
+					</uxap:heading>
+					<uxap:actions>
+						<uxap:ObjectPageHeaderActionButton type="Emphasized" text="{i18n>changeStatus}" press="onChangeTermStatusDialog" hideText="false"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>termEmailUnion}" press="onEmailPressOdbory" type="Emphasized" hideText="false" visible="true"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>termEmailProposal}" press="onEmailPressProposal" type="Emphasized" hideText="false"
+							visible="true"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>termEmailFinal}" press="onEmailPressFinal" type="Emphasized" hideText="false" visible="true"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>edit}" type="Emphasized" hideText="false" press="onEditPress"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>termDelete}" type="Emphasized" hideText="false" press="onDeleteTermDialog"/>
+					</uxap:actions>
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<uxap:headerContent>
+				<FlexBox fitContainer="true">
+					<VBox class="sapUiLargeMarginEnd">
+						<ObjectStatus title="ID" id="RequestId" text="{TermService>TermId}" visible="false"/>
+						<ObjectStatus title="TermService>Status" text="{TermService>Status}" visible="false" id="TermStatus"/>
+						<ObjectStatus class="sapMObjectStatusLarge" text="{TermService>StatusDesc}" state="Information"/>
+					</VBox>
+				</FlexBox>
+			</uxap:headerContent>
+			<uxap:sections>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>basicInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<VBox class="sapUiSmallMargin">
+								<f:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+									<f:content>
+										<Label text="{i18n>termDate}"/>
+										<Text text="{ path : 'TermService>TermDate', type:'sap.ui.model.odata.type.Date'}" id="TermDate"/>
+										<Label text="{i18n>termTime}"/>
+										<Text text="{ path : 'TermService>TermTime', formatter : '.formatter.formateTimeToString'}" id="TermTime"/>
+										<Label text="{i18n>termZarad}"/>
+										<Text
+											text="{ path : 'TermService>TermZarad', type:'sap.ui.model.odata.type.Date'} ({ path : 'TermService>TimeZarad', formatter : '.formatter.formateTimeToString'})"/>
+										<Label text="{i18n>termSp}"/>
+										<Text
+											text="{ path : 'TermService>TermSp', type:'sap.ui.model.odata.type.Date'} ({ path : 'TermService>TimeSp', formatter : '.formatter.formateTimeToString'})"/>
+										<Label text="{i18n>termOdbory}"/>
+										<Text
+											text="{ path : 'TermService>TermOdbory', type:'sap.ui.model.odata.type.Date'} ({ path : 'TermService>TimeOdbory', formatter : '.formatter.formateTimeToString'})"/>
+										<Label text="{i18n>typeRequest}"/>
+										<Text text="{TermService>ProcessDesc}"/>
+										<Label text="{i18n>location}"/>
+										<Text text="{TermService>Location}"/>
+										<Label text="{i18n>note}"/>
+										<Text text="{TermService>Note}"/>
+									</f:content>
+								</f:SimpleForm>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>pointsOfDiscussion}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<table:Table id="PointsOfDiscusion" busyIndicatorDelay="0" selectionMode="Single" minAutoRowCount="10"
+								rows="{path: 'TermService>TermRequestCopySet', sorter: {path:'Ordernr', descending:false}}" rowSelectionChange="onRowSelectionChange">
+								<table:extension>
+									<OverflowToolbar>
+										<Title id="tableTitle" level="H2" titleStyle="H4"/>
+										<ToolbarSpacer/>
+										<Button type="Transparent" press="onAddRequestTotermDialog" text="{i18n>addRequest}"/>
+										<Button type="Transparent" press="onSortPointsOfDiscussion" text="{i18n>sortPointsOfDiscussion}"/>
+										<Button type="Transparent" press="onDeleteRequestTotermDialog" text="{i18n>removeFromTerm}"/>
+										<Button type="Transparent" press="onMultiChangeStatusDialog" text="{i18n>massStatusChange}"/>
+										<Button type="Transparent" press="onAddWritingToRequest" text="{i18n>writing}"/>
+									</OverflowToolbar>
+								</table:extension>
+								<table:columns>
+									<table:Column minWidth="100">
+										<Label text="{i18n>requestNumber}"/>
+										<table:template>
+											<Text text="{TermService>DpoReqFull}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="200">
+										<Label text="{i18n>topicOfDiscussion}"/>
+										<table:template>
+											<Text text="{TermService>RequestName}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="200">
+										<Label text="{i18n>submitter}"/>
+										<table:template>
+											<Text text="{TermService>CreatorFullName}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>stateRequest}"/>
+										<table:template>
+											<Text text="{TermService>StatusDescr}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>time}"/>
+										<table:template>
+											
+											<Text text="{ parts: [ {path: 'TermService>ReqTime'}, {path: 'TermService>Ordernr'} ], formatter : '.formatter.formateTimeToStringOrDigital'}"/>
+											
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>hrbpFullName}"/>
+										<table:template>
+											<Text text="{TermService>HrbrpFullName}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>oj}"/>
+										<table:template>
+											<Text text="{TermService>Short}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>writingStatus}"/>
+										<table:template>
+											<Text text="{TermService>NotifStatusDescr}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="100" id="OrdernrColumn" visible="false">
+										<Label text="{i18n>Ordernr}"/>
+										<table:template>
+											<Text text="{TermService>Ordernr}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>invitation}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<l:VerticalLayout class="sapUiContentPadding" width="100%">
+								<Text text="{i18n>proposal}" class="sapUiTinyMarginTop"/>
+								<TextArea value="{TermService>Proposal}" rows="12" showExceededText="true" maxLength="250" width="100%"
+									valueState="{= ${/value}.length > 40 ? 'Warning' : 'None' }" id="ProposalText" editable="false"/>
+								<Text text="{i18n>final}" class="sapUiTinyMarginTop"/>
+								<TextArea value="{TermService>Final}" rows="12" showExceededText="true" maxLength="250" width="100%" id="FinalText" editable="false"/>
+							</l:VerticalLayout>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+	</Shell>
+</mvc:View>

@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog showHeader="true" title="Smazání úkolu" id="DeleteTaskDialog">
+		<Text text="Chcete smazat tento úkol?" />
+		<beginButton>
+			<Button text="{i18n>delete}" press="deleteTask"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onCloseDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

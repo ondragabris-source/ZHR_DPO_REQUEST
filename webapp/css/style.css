@@ -1,0 +1,9 @@
+/* Enter your custom styles here */
+.customlink {
+  color: black !important;
+  cursor: default !important;
+}
+
+.alignLeftImportant{
+  text-align: left !important;
+}

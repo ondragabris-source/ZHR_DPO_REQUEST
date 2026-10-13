@@ -1,0 +1,115 @@
+<mvc:View displayBlock="true" controllerName="ZHR_DPO_REQUEST.controller.CreateTerm" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"
+	xmlns:l="sap.ui.layout" xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table"
+	xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m">
+	<Shell id="shell" appWidthLimited="false">
+		<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="true" toggleHeaderOnTitleClick="true" upperCaseAnchorBar="false">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:heading>
+						<VBox>
+							<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+							<Title text="{i18n>editOfDiscusion}" wrapping="true"/>
+						</VBox>
+					</uxap:heading>
+					<uxap:actions>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>save}" type="Emphasized" hideText="false" press="onSavePress"/>
+						<!-- <uxap:ObjectPageHeaderActionButton type="Emphasized" text="{i18n>changeStatus}" press="onChangeTermStatusDialog" hideText="false"/> -->
+						<uxap:ObjectPageHeaderActionButton text="{i18n>termDelete}" type="Emphasized" hideText="false" press="onDeleteTermDialog"/>
+					</uxap:actions>
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<uxap:headerContent>
+				<FlexBox fitContainer="true">
+					<VBox class="sapUiLargeMarginEnd">
+						<ObjectStatus title="ID" id="RequestId" text="{TermService>TermId}" visible="false"/>
+						<ObjectStatus class="sapMObjectStatusLarge" text="{TermService>StatusDesc}" state="Information"/>
+					</VBox>
+				</FlexBox>
+			</uxap:headerContent>
+			<uxap:sections>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>basicInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<VBox class="sapUiSmallMargin">
+								<f:Form editable="true" id="MainForm">
+									<f:title></f:title>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="2" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1"
+											emptySpanM="1" emptySpanS="1" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="{i18n>termDate}">
+													<f:fields>
+														<DatePicker dateValue="{path:'TermService>TermDate', type:'sap.ui.model.odata.type.Date'}" placeholder=" " visible="{appModel>/edit}" editable="{CtrlEdit}" id="TermDate"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>termStart}">
+													<f:fields>
+														<TimePicker
+															value="{path:'TermService>TermTime', type:'sap.ui.model.odata.type.Time'}"
+															valueFormat="hh:mm" 
+															minutesStep="15" 
+															secondsStep="80" 
+															displayFormat="hh:mm"
+															maskMode="On" 
+															change="handleChangeTimePicker"
+															placeholder="Enter meeting start time" />
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>termZarad}">
+													<f:fields>
+														<DatePicker dateValue="{path:'TermService>TermZarad', type:'sap.ui.model.odata.type.Date'}" placeholder=" " visible="{appModel>/edit}" editable="{CtrlEdit}"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>termSp}">
+													<f:fields>
+														<DatePicker dateValue="{path:'TermService>TermSp', type:'sap.ui.model.odata.type.Date'}" placeholder=" " visible="{appModel>/edit}" editable="{CtrlEdit}"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>termOdbory}">
+													<f:fields>
+														<DatePicker dateValue="{path:'TermService>TermOdbory', type:'sap.ui.model.odata.type.Date'}" placeholder=" " visible="{appModel>/edit}" editable="{CtrlEdit}"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>typeRequest}">
+													<f:fields>
+														<Input value="{TermService>ProcessDesc}" width="100%" editable="false"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>location}">
+													<f:fields>
+														<Input value="{TermService>Location}" width="100%"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>note}">
+													<f:fields>
+														<Input value="{TermService>Note}" width="100%"/>
+													</f:fields>
+												</f:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{TermService>invitation}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<l:VerticalLayout class="sapUiContentPadding" width="100%">
+								<Text text="{i18n>proposal}" class="sapUiTinyMarginTop"/>
+								<TextArea value="{TermService>Proposal}" rows="12" showExceededText="true" maxLength="250" width="100%"
+									valueState="{= ${/value}.length > 40 ? 'Warning' : 'None' }" id="ProposalText"/>
+								<Text text="{i18n>final}" class="sapUiTinyMarginTop"/>
+								<TextArea value="{TermService>Final}" rows="12" showExceededText="true" maxLength="250" width="100%" id="FinalText"/>
+							</l:VerticalLayout>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+	</Shell>
+</mvc:View>

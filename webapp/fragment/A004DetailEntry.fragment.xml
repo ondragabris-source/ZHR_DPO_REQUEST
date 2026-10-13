@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog showHeader="false" title="Detail" id="DetailA004Dialog">
+		<VBox class="sapUiSmallMargin">
+			<f:SimpleForm id="SimpleFormDisplayColumn_oneGroup" editable="false" layout="ColumnLayout" title="Detail">
+				<f:content>
+					<Label text="{i18n>ItemTypeIndex}"/>
+					<Text text="{A004>ItemTypeIndex}"/>
+					<Label text="{i18n>Pernr}"/>
+					<Text text="{ path : 'A004>Pernr', formatter : '.formatter.removeLeadingZeros'}"/>
+					<Label text="{i18n>JmenoPrijmeni03}"/>
+					<Text text="{A004>JmenoPrijmeni03}"/>
+					<Label text="{i18n>Stredisko03}"/>
+					<Text text="{A004>Stredisko03}"/>
+					<Label text="{i18n>Fm03}"/>
+					<Text text="{A004>Fm03}"/>
+					<Label text="{i18n>NazevPozice03}"/>
+					<Text text="{A004>NazevPozice03}"/>
+					<Label text="{i18n>Utvar03}"/>
+					<Text text="{A004>Utvar03}"/>
+					<Label text="{i18n>TerminZruseni}"/>
+					<Text text="{A004>TerminZruseni}"/>
+					<Label text="{i18n>ReseniNavrh}"/>
+					<Text text="{A004>ReseniNavrh}"/>
+					<Label text="{i18n>Cinnosti}"/>
+					<Text text="{A004>Cinnosti}"/>
+					<Label text="{i18n>Procent}"/>
+					<Text text="{A004>Procent}"/>
+					<Label text="{i18n>Opatreni}"/>
+					<Text text="{A004>Opatreni}"/>
+					<Label text="{i18n>OpatreniDetail}"/>
+					<Text text="{A004>OpatreniDetail}"/>
+					<Label text="{i18n>ZahajeniProjednani}"/>
+					<Text text="{A004>ZahajeniProjednani}"/>
+					<Label text="{i18n>DoplnInf}"/>
+					<Text text="{A004>DoplnInf}"/>
+					<Label text="{i18n>StavProjednaniFm}"/>
+					<Text text="{A004>StavProjednaniFm}"/>
+					<Label text="{i18n>NavrhZruseniFm}"/>
+					<Text text="{A004>NavrhZruseniFm}"/>
+					<Label text="{i18n>OdsouhlReseni}"/>
+					<Text text="{A004>OdsouhlReseni}"/>
+					<Label text="{i18n>UkonceniProj}"/>
+					<Text text="{A004>UkonceniProj}"/>
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<buttons>
+			<Button text="{i18n>edit}" press="onEditPress" visible="{ parts: [ {path: 'appModel>/A004RequestSettings/RequestEditO'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'},  {path :'A004>NotYetApproved'} ], formatter : '.formatter.getBooleanFromStringA004Case'}"/>
+			<Button text="{i18n>delete}" press="onDeleteItemPressed" visible="{ parts: [ {path: 'appModel>/A004RequestSettings/RequestEditO'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'},  {path :'A004>NotYetApproved'} ], formatter : '.formatter.getBooleanFromStringA004Case'}"/>
+			<Button text="{i18n>close}" press="onCloseDialog"/>
+		</buttons>
+		<beginButton></beginButton>
+		<endButton></endButton>
+	</Dialog>
+</core:FragmentDefinition>

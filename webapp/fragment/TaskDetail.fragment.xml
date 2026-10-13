@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog showHeader="false" id="DetailTaskDialog">
+		<f:Form editable="true">
+			<f:title>
+				<core:Title text="{i18n>detailTask}"/>
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+					emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="{i18n>responsiblePerson}">
+							<f:fields>
+								<Text text="{TermService>FullName}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>term}">
+							<f:fields>
+								<Text text="{ path : 'TermService>FinishDate', type:'sap.ui.model.odata.type.Date'}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>status}">
+							<f:fields>
+								<Text text="{TermService>StatusDescr}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>taskText}">
+							<f:fields>
+								<TextArea rows="4" width="100%"  value="{TermService>TaskText}" editable="false"/>
+							</f:fields>
+						</f:FormElement>
+						
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+		<buttons>
+			<Button text="{i18n>edit}" press="onEditPress"/>
+			<Button text="{i18n>delete}" press="onDeleteItemPressed"/>
+			<Button text="{i18n>close}" press="onDestroyDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

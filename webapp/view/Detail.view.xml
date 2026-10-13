@@ -1,0 +1,339 @@
+<mvc:View displayBlock="true" controllerName="ZHR_DPO_REQUEST.controller.Detail" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"
+	xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m" xmlns:table="sap.ui.table">
+	<Shell id="shell" appWidthLimited="false">
+		<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="true" toggleHeaderOnTitleClick="true" upperCaseAnchorBar="false"
+			useIconTabBar="false">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:heading>
+						<VBox>
+							<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+							<Title text="{i18n>detailRequest} ({appModel>/DetailRequestSettings/RoleDescr})" wrapping="true"/>
+						</VBox>
+					</uxap:heading>
+					<uxap:actions>
+						<uxap:ObjectPageHeaderActionButton type="Transparent" text="{i18n>approveWithoutChanges}" hideText="false" hideIcon="true"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestSendO', formatter : '.formatter.getBooleanFromString'}" press="onCreatePress1"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>changeTermToRequest}" type="Emphasized" press="onChangeTermToRequestPress" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/ChangeTermFromRequestO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton type="Emphasized" text="{i18n>agreementCreate}" hideText="false" hideIcon="true"
+							press="onCreateAgreementPress"
+							visible="{ path : 'appModel>/DetailRequestSettings/AgreementCreateO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>writing}" type="Emphasized" press="onAddWritingToRequest" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/EditNotifO', formatter : '.formatter.getBooleanFromString'}"/>
+						<MenuButton text="{i18n>emailAgreement}"
+							visible="{ path : 'appModel>/DetailRequestSettings/AgreementMailO', formatter : '.formatter.getBooleanFromString'}">
+							<menu>
+								<Menu>
+									<MenuItem text="{i18n>proposalEmailAgreement}" press="agreementProposalPress"/>
+									<MenuItem text="{i18n>finalEmailAgreement}" press="agreementFinal1Press"/>
+									<MenuItem text="{i18n>finalEmailAgreementAll}" press="agreementFinal2Press"/>
+								</Menu>
+							</menu>
+						</MenuButton>
+						<uxap:ObjectPageHeaderActionButton text="onEmailPress" press="onEmailPress" type="Emphasized" hideText="false" visible="false"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>pdfRequest}" press="onBothPdfPress" type="Emphasized" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/DisplayPdfO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>textsOfRequest}" press="onTextsOfRequestPress" type="Emphasized" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestNextStepO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>nextStep}" press="onNextStepPress" type="Emphasized" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestNextStepO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>copy}" type="Emphasized" press="onCopyPress" hideText="false"
+							visible="{ path : 'appModel>/MasterRequestSettings/RequestCreateO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>storno}" type="Emphasized" press="onStornoPress" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestStornoO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>delete}" type="Emphasized" press="onDeletePress" hideText="false"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestDeleteO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton type="Transparent" text="{i18n>edit}" hideText="false" hideIcon="true" press="onEditPress"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestEditO', formatter : '.formatter.getBooleanFromString'}"/>
+					</uxap:actions>
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<uxap:headerContent>
+				<FlexBox fitContainer="true">
+					<VBox class="sapUiLargeMarginEnd">
+						<ObjectStatus title="{i18n>requestNumber}" id="RequestId" text="{DpoReqFull}"/>
+						<ObjectStatus title="{i18n>topicRequest}" text="{Name}"/>
+						<ObjectStatus title="{i18n>typeRequestCentralLevel}" text="{ProcessDesc}"/>
+						<ObjectStatus title="{i18n>submitter}" text="{RequestorNameFull}"/>
+						<ObjectStatus title="{i18n>creatorDeputy}" text="{parts: [{path: 'RequestorNameFull'},{path: 'UserNameFull'}], formatter: '.formatter.ifNotSameReturnSecondValue'}"/>
+						<ObjectStatus class="sapUiSmallMarginBottom" text="{StatusDescr}" icon="sap-icon://message-information" state="Information"/>
+					</VBox>
+				</FlexBox>
+			</uxap:headerContent>
+			<uxap:sections>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>basicInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<VBox class="sapUiSmallMargin">
+								<f:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+									<f:content>
+										<Label text="{i18n>typeRequest}"/>
+										<Text text="{ProcessDesc}"/>
+										<Label text="{i18n>creationDateRequest}"/>
+										<Text text="{ path : 'RequestDate', formatter : '.formatter.formateDateToString'}"/>
+										<Label text="{i18n>theme}"/>
+										<Text text="{ThemeLong}"/>
+										<Label text="{i18n>template}"/>
+										<Text text="{TemplateDesc}"/>
+										<Label text="{i18n>sendDateUnions}"/>
+										<Text text="{ path : 'SendDate', formatter : '.formatter.formateDateToString'}"/>
+										<Label text="{i18n>meetingOfDiscussion}" visible="{ path : 'ProcessDesc', formatter : '.formatter.falseIfAgreement'}"/>
+										<Text text="{ path : 'TermDate', formatter : '.formatter.formateDateToString'}"
+											visible="{ path : 'ProcessDesc', formatter : '.formatter.falseIfAgreement'}"/>
+									</f:content>
+								</f:SimpleForm>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>detailedInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<TextArea rows="11" width="100%" id="RequestLongText" value="{Text}" editable="false"/>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>attachments}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<l:VerticalLayout  width="100%">
+								<Link text="{i18n>requiredAttachment}" press="onA004LinkPress" visible="false"/>
+								<UploadCollection multiple="true" sameFilenameAllowed="true" instantUpload="true" visible="{ path : 'TemplateCode', formatter : '.formatter.returnTrueIfA004'}"
+									noDataDescription="Drop files or use the &quot;Add&quot; button to keep files ready for upload" change="onChange" numberOfAttachmentsText="{i18n>requiredAttachments}"
+									fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+									uploadComplete="onUploadComplete" validationSuccess="beforeUploadStarts" beforeUploadStarts="onBeforeUploadStarts" uploadEnabled="false"
+									uploadButtonInvisible="true" uploadUrl="/sap/opu/odata/sap/ZHR_DPO_REQUEST01_SRV/RequestAttchSet">
+									<items>
+										<UploadCollectionItem documentId="DocId" fileName="{i18n>requiredAttachment}" mimeType="PDF" press="onA004LinkPress" visibleDelete="false" 
+											visibleEdit="false"></UploadCollectionItem>
+									</items>
+								</UploadCollection>
+								<UploadCollection id="UploadCollection" multiple="true" sameFilenameAllowed="true" instantUpload="true"
+									noDataDescription="Drop files or use the &quot;Add&quot; button to keep files ready for upload" change="onChange"
+									fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+									uploadComplete="onUploadComplete" validationSuccess="beforeUploadStarts" beforeUploadStarts="onBeforeUploadStarts" uploadEnabled="false"
+									uploadButtonInvisible="true" uploadUrl="/sap/opu/odata/sap/ZHR_DPO_REQUEST01_SRV/RequestAttchSet" items="{RequestAttchDirSet}">
+									<items>
+										<UploadCollectionItem documentId="{DocId}" fileName="{Filename}" mimeType="{Mimetype}" url="{Link}" visibleDelete="false"
+											visibleEdit="false"></UploadCollectionItem>
+									</items>
+								</UploadCollection>
+							</l:VerticalLayout>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>anotherRequestors}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<table:Table busyIndicatorDelay="0" selectionMode="None" id="AnotherRequestorsTable"
+								rows="{path: 'OtherApproversCopySet', events: {dataReceived: '.onDataReceivedanotherRequestorsTable'}}"
+								rowSelectionChange="onRowSelectionChange">
+								<table:columns>
+									<table:Column width="75px" visible="{ApprovalType}">
+										<Label text="{i18n>orderNr}"/>
+										<table:template>
+											<Text text="{ path : 'Ordernr', formatter : '.formatter.returnNullIf999'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="300">
+										<Label text="{i18n>name}"/>
+										<table:template>
+											<Text text="{NameFull}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="150px">
+										<Label text="{i18n>DZC}"/>
+										<table:template>
+											<Text text="{Uname}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="160px">
+										<Label text="{i18n>organizationalUnit}"/>
+										<table:template>
+											<Text text="{Department}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>role}"/>
+										<table:template>
+											<Text text="{Role}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>email}"/>
+										<table:template>
+											<Text text="{Email}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>historyOfSteps}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<table:Table busyIndicatorDelay="0" id="HistoryTable" selectionMode="None"
+								rows="{path: 'ReqHistorySet', events: {dataReceived: '.onDataReceivedanotherHistoryTable'}}" rowSelectionChange="onRowSelectionChange">
+								<table:columns>
+									<table:Column minWidth="300">
+										<Label text="{i18n>name}"/>
+										<table:template>
+											<Text text="{NameFull}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="120px">
+										<Label text="{i18n>dateOfChange}"/>
+										<table:template>
+											<Text text="{ path : 'Datum', formatter : '.formatter.formateDateToString'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="60px">
+										<Label text="{i18n>time}"/>
+										<table:template>
+											<Text text="{ path : 'Time', formatter : '.formatter.formateTimeToString'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>role}"/>
+										<table:template>
+											<Text text="{RoleDesc}" tooltip="{Clarification}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>action}"/>
+										<table:template>
+											<Link text="{Clarification}" tooltip="{Clarification}" class="customlink"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>status}"/>
+										<table:template>
+											<Text text="{NextStatusDesc}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true"
+					visible="{parts: [{path: 'Process'},{value: 'WritingSection'}], formatter: '.formatter.determineVisible'}" title="{i18n>writing}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<VBox class="sapUiSmallMargin">
+								<f:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+									<f:content>
+										<Label text="{i18n>writingStatus}"/>
+										<Text id="WritingStatusText" text=""/>
+									</f:content>
+								</f:SimpleForm>
+								<UploadCollection id="UploadCollectionWriting" multiple="true" sameFilenameAllowed="true" instantUpload="true" noDataDescription=" "
+									change="onChange" numberOfAttachmentsText="{i18n>writingAttachments}" fileDeleted="onFileDeleted"
+									filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+									uploadComplete="onUploadComplete" validationSuccess="beforeUploadStarts" beforeUploadStarts="onBeforeUploadStarts" uploadEnabled="false"
+									uploadButtonInvisible="true" uploadUrl="/sap/opu/odata/sap/ZHR_DPO_TERM_SRV/NotifAttchSet" items="">
+									<items>
+										<UploadCollectionItem documentId="{TermService>DocId}" fileName="{TermService>Filename}" mimeType="{TermService>Mimetype}"
+											url="{TermService>Link}" enableEdit="false" visibleEdit="false" enableDelete="true"/>
+									</items>
+								</UploadCollection>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" title="{i18n>agreements}"
+					visible="{parts: [{path: 'Process'},{value: 'AgreementSection'}], formatter: '.formatter.determineVisible'}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<VBox class="sapUiSmallMargin">
+								<table:Table busyIndicatorDelay="0" selectionMode="None" id="AgreementTable"
+									rowSelectionChange="onRowSelectionChange">
+									<table:columns>
+										<table:Column minWidth="120">
+											<Label text="{i18n>agreementName}"/>
+											<table:template>
+												<Text text="{AgrService>Name}"/>
+											</table:template>
+										</table:Column>
+										<table:Column minWidth="120">
+											<Label text="{i18n>template}"/>
+											<table:template>
+												<Text text="{AgrService>TemplateDesc}"/>
+											</table:template>
+										</table:Column>
+										<table:Column minWidth="120">
+											<Label text="{i18n>agreementStatus}"/>
+											<table:template>
+												<Text text="{AgrService>StatusDescr}"/>
+											</table:template>
+										</table:Column>
+										<table:Column minWidth="100">
+											<Label text="{i18n>datumUcOd}"/>
+											<table:template>
+												<Text text="{ path : 'AgrService>AgreementDateTo', formatter : '.formatter.formatDateCanReturnNull'}"/>
+											</table:template>
+										</table:Column>
+										<table:Column minWidth="200">
+											<Label text="{i18n>datumUcDo}"/>
+											<table:template>
+												<Text text="{ path : 'AgrService>AgreementDate', formatter : '.formatter.formatDateCanReturnNull'}"/>
+											</table:template>
+										</table:Column>
+										<table:Column minWidth="120">
+											<Label text="{i18n>Dokument}"/>
+											<table:template>
+												<Button press="onAgreementDownloadPress" text="{i18n>Show}"
+													visible="{ path : 'AgrService>Link', formatter : '.formatter.visibleIfNotNull'}"/>
+											</table:template>
+										</table:Column>
+									</table:columns>
+								</table:Table>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" title="{i18n>tasks}"
+					visible="{parts: [{path: 'Process'},{value: 'Tasks'}], formatter: '.formatter.determineVisible'}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<VBox class="sapUiSmallMargin">
+								<table:Table busyIndicatorDelay="0" id="TaskTable" rowSelectionChange="onRowSelectionChange" visible="true" selectionMode="None">
+									<table:extension></table:extension>
+									<table:columns>
+										<table:Column>
+											<Label text="{i18n>taskText}"/>
+											<table:template>
+												<Text text="{TermService>TaskText}"/>
+											</table:template>
+										</table:Column>
+										<table:Column>
+											<Label text="{i18n>responsiblePerson}"/>
+											<table:template>
+												<Text text="{TermService>FullName}"/>
+											</table:template>
+										</table:Column>
+										<table:Column width="120px">
+											<Label text="{i18n>term}"/>
+											<table:template>
+												<Text text="{ path : 'TermService>FinishDate', type:'sap.ui.model.odata.type.Date'}"/>
+											</table:template>
+										</table:Column>
+										<table:Column width="120px">
+											<Label text="{i18n>state}"/>
+											<table:template>
+												<Text text="{TermService>StatusDescr}"/>
+											</table:template>
+										</table:Column>
+									</table:columns>
+								</table:Table>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+	</Shell>
+</mvc:View>

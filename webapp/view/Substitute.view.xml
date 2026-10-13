@@ -1,0 +1,36 @@
+<mvc:View controllerName="ZHR_DPO_REQUEST.controller.Substitute" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:table="sap.ui.table"
+	xmlns="sap.m" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants"
+	xmlns:form="sap.ui.layout.form" xmlns:uxap="sap.uxap" busyIndicatorDelay="0">
+	<table:Table busyIndicatorDelay="0" id="table" 
+		rows="{path: '/DeputySet', events: {dataReceived: '.onDataReceivedMasterTable', dataRequested: '.onDataRequestedMasterTable'}}"
+		selectionMode="None" visibleRowCountMode="Auto" rowSelectionChange="onRowSelectionChange">
+		<table:extension>
+			<OverflowToolbar>
+				<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+				<Title text="{i18n>settingsOfMyRepresentatives}" level="H2" titleStyle="H4"/>
+				<ToolbarSpacer/>
+				<Button type="Transparent" press="onAddDeputyPress" text="{i18n>addRepresentative}"/>
+			</OverflowToolbar>
+		</table:extension>
+		<table:columns>
+			<table:Column sortProperty="DeputyFullName" minWidth="100">
+				<Label text="{i18n>deputyFullName}"/>
+				<table:template>
+					<Text text="{DeputyFullName}"/>
+				</table:template>
+			</table:Column>
+			<table:Column sortProperty="ActivityDesc" minWidth="200">
+				<Label text="{i18n>typeOfRepresentation}"/>
+				<table:template>
+					<Text text="{ActivityDesc}"/>
+				</table:template>
+			</table:Column>
+			<table:Column sortProperty="Creator" minWidth="200" visible="false">
+				<Label text="{i18n>creator}"/>
+				<table:template>
+					<Text text="{CreatorFullName}"/>
+				</table:template>
+			</table:Column>
+		</table:columns>
+	</table:Table>
+</mvc:View>

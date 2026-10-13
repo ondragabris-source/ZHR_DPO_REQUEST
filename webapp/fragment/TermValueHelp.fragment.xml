@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="selectDialog" title="{i18n>search}" items="{TermService>/TermSet}" search=".onTermValueHelpSearch"
+		confirm=".onValueHelpTermChosen" cancel=".onValueHelpClose">
+		
+		<ObjectListItem title="{ path : 'TermService>TermDate', formatter : '.formatter.formateDateToString'}" type="Active" press="onListItemPress"
+			 numberUnit="{TermService>TermId}" id="TermDatesDialogHelpForm">
+			<ObjectAttribute text="{TermService>Location}"/>
+			<ObjectAttribute text="{TermService>StatusDesc}"/>
+		</ObjectListItem>
+	</SelectDialog>
+</core:FragmentDefinition>
+<!--<StandardListItem iconDensityAware="false" iconInset="false" title="{Fullname}" description="{UnitShort}" info="{Pernr}"/>-->

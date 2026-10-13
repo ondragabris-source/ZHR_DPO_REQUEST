@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+	<Dialog showHeader="false">
+		
+		<table:Table busyIndicatorDelay="0" 
+		rows="{path: '/DeputySet', events: {dataReceived: '.onDataReceivedMasterTable', dataRequested: '.onDataRequestedMasterTable'}}"
+		selectionMode="MultiToggle" visibleRowCountMode="Auto" rowSelectionChange="onRowSelectionChange">
+		<table:extension>
+			<OverflowToolbar>
+				<Title text="Nastavení dalších žadatelù1" level="H2" titleStyle="H4"/>
+				<ToolbarSpacer/>
+				<Button type="Transparent" press="onCreateRequestClick" text="Pøidat zástupce"/>
+			</OverflowToolbar>
+		</table:extension>
+		<table:columns>
+			<table:Column sortProperty="DeputyFullName" minWidth="100">
+				<Label text="DeputyFullName1"/>
+				<table:template>
+					<Text text="{DeputyFullName}"/>
+				</table:template>
+			</table:Column>
+			<table:Column sortProperty="ActivityDesc" minWidth="200">
+				<Label text="ActivityDesc1"/>
+				<table:template>
+					<Text text="{ActivityDesc}"/>
+				</table:template>
+			</table:Column>
+		</table:columns>
+	</table:Table>
+		
+	<beginButton>
+         <Button
+            text="{i18n>save}"
+            press="onCloseDialog"/>
+	</beginButton>
+	
+	<endButton>
+		<Button
+            text="{i18n>close}"
+            press="onCloseDialog"/>
+	</endButton>
+   </Dialog>
+	
+	
+	
+</core:FragmentDefinition>

@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="selectDialog"
+		title="{i18n>search}"
+		items="{/RequestDataSet}"
+		search=".onRequestValueHelpSearch"
+		confirm=".onValueHelpConfirm"
+		cancel=".onValueHelpClose">
+			<ObjectListItem
+			title="{DpoReqFull}"
+			type="Active"
+			press="onListItemPress"
+			number="{ path : 'TermDate', formatter : '.formatter.formateDateToString'}">
+			<ObjectAttribute text="{Name}" />
+			<ObjectAttribute text="{StatusDescr}" />
+			<ObjectAttribute text="{ProcessDesc}"/>
+			<ObjectAttribute text="{Orgeh}"/>
+		</ObjectListItem>
+	</SelectDialog>
+</core:FragmentDefinition>

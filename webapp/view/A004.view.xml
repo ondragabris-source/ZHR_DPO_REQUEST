@@ -1,0 +1,156 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:table="sap.ui.table"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:uit="sap.ui.table" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core"
+	xmlns:smartField="sap.ui.comp.smartfield" controllerName="ZHR_DPO_REQUEST.controller.A004" displayBlock="true">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>titleA004}" showHeader="false">
+					<content>
+						<Panel width="auto" expandable="false" expanded="true">
+							<table:Table busyIndicatorDelay="0" id="MainTable" rowSelectionChange="onRowSelectionChange" visible="true"
+								selectionMode="None">
+								<table:extension>
+									<OverflowToolbar style="Clear">
+										<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+										<Title text="{i18n>titleA004}"/>
+										<ToolbarSpacer/>
+										<Label text="Verze:"/>
+										<ComboBox id="VersionComboBox" items="{path: 'A004>/A004Set', sorter: {path: 'Version', descending: true}}" selectionChange="onVersionChange">
+											<core:Item key="{A004>Version}" text="{A004>Version}"/>
+										</ComboBox>
+										<Button text="{i18n>DownloadPdf}" press="onPdfPress" visible="{appModel>/A004Settings/ShowA004PdfFl}"/>
+										<Button text="{i18n>AddRow}" press="onCreatePress" visible="{ parts: [ {path: 'appModel>/A004RequestSettings/RequestEditO'}, {path: 'appModel>/A004ReadOnly'}, {path: 'appModel>/MasterRequestSettings/Role'} ], formatter : '.formatter.getBooleanFromStringA004Case'}"/>
+										
+									</OverflowToolbar>
+								</table:extension>
+								<table:columns>
+									<table:Column minWidth="250">
+										<Label text="{i18n>typeOfRow}"/>
+										<table:template>
+											<Text
+												text="{ parts: [ {path: 'A004>SerialNumberRoman01'}, {path: 'A004>Description02'}, {path: 'A004>ItemTypeIndex'} ], formatter : '.formatter.formatTypeOfRow'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="100px">
+										<Label text="{i18n>ItemTypeIndex}"/>
+										<table:template>
+											<Text text="{A004>ItemTypeIndex}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="100px">
+										<Label text="{i18n>Pernr}"/>
+										<table:template>
+											<Text text="{ path : 'A004>Pernr', formatter : '.formatter.removeLeadingZeros'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="250">
+										<Label text="{i18n>JmenoPrijmeni03}"/>
+										<table:template>
+											<Text text="{A004>JmenoPrijmeni03}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="75px">
+										<Label text="{i18n>Stredisko03}"/>
+										<table:template>
+											<Text text="{A004>Stredisko03}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="100px">
+										<Label text="{i18n>Fm03}"/>
+										<table:template>
+											<Text text="{A004>Fm03}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="250">
+										<Label text="{i18n>NazevPozice03}"/>
+										<table:template>
+											<Text text="{A004>NazevPozice03}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>Utvar03}"/>
+										<table:template>
+											<Text text="{A004>Utvar03}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="120px">
+										<Label text="{i18n>TerminZruseni}"/>
+										<table:template>
+											<Text text="{ path : 'A004>TerminZruseni', formatter : '.formatter.formatDate'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="250">
+										<Label text="{i18n>ReseniNavrh}"/>
+										<table:template>
+											<Text text="{A004>ReseniNavrh}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>Cinnosti}"/>
+										<table:template>
+											<Text text="{A004>Cinnosti}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>Procent}"/>
+										<table:template>
+											<Text text="{A004>Procent}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>Opatreni}"/>
+										<table:template>
+											<Text text="{A004>Opatreni}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="200">
+										<Label text="{i18n>OpatreniDetail}"/>
+										<table:template>
+											<Text text="{A004>OpatreniDetail}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="220px" >
+										<Label text="{i18n>ZahajeniProjednani}" />
+										<table:template>
+											<Text text="{A004>ZahajeniProjednani}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="350px">
+										<Label text="{i18n>DoplnInf}"/>
+										<table:template>
+											<Text text="{A004>DoplnInf}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="170">
+										<Label text="{i18n>StavProjednaniFm}"/>
+										<table:template>
+											<Text text="{A004>StavProjednaniFm}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="150px">
+										<Label text="{i18n>NavrhZruseniFm}"/>
+										<table:template>
+											<Text text="{ path : 'A004>NavrhZruseniFm', formatter : '.formatter.formatDate'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="150px">
+										<Label text="{i18n>OdsouhlReseni}"/>
+										<table:template>
+											<Text text="{A004>OdsouhlReseni}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="150px">
+										<Label text="{i18n>UkonceniProj}"/>
+										<table:template>
+											<Text text="{A004>UkonceniProj}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</Panel>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog showHeader="false">
+		<f:Form editable="true">
+			<f:title>
+				<core:Title text="{i18n>createNewTerm}"/>
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+					emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer >
+					<f:formElements>
+						<f:FormElement label="{i18n>location}">
+							<f:fields>
+								<Input id="LocationCreate" value="" width="100%"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>occurence}">
+							<f:fields>
+								<Select selectedKey="" change="onConcurencyChange" id="ConcurencyTerm">
+									<items>
+										<core:Item text="{i18n>once}" key="Jednou"/>
+										<core:Item text="{i18n>onceInTwooWeeks}" key="DvouTyden"/>
+										<core:Item text="{i18n>onceInFourWeeks}" key="CtyrTyden"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>date}" id="DateRangeFormElement" visible="false">
+							<f:fields>
+								<DateRangeSelection id="DateRange" change="handleChange" enabled="true"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>date}" id="DateInputFormElement">
+							<f:fields>
+								<DatePicker id="DateInput" change="handleChange" enabled="true"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+		<beginButton>
+			<Button text="{i18n>save}" press="onCreateTermDialogSuccess"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onCloseDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

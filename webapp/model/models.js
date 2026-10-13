@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/model/json/JSONModel","sap/ui/Device"],function(e,i){"use strict";return{initModel:function(n){var d=new e(i);d.setDefaultBindingMode("OneWay");n.setModel(d,"device");var o=new e;n.setModel(o,"appModel")}}});

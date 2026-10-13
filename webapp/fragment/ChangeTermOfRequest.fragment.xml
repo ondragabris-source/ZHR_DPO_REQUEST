@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog showHeader="false">
+		<f:Form editable="true">
+			<f:title>
+				<core:Title text="{i18n>addRequestToTerm}"/>
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+					emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="{i18n>meetingOfDiscussion}">
+							<f:fields>
+								<Input id="TermIdAddTermDialog2" valueHelpOnly="true" showSuggestion="true" showValueHelp="true" valueHelpRequest="onTermValueHelpPress"
+									startSuggestion="1"></Input>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+					<f:formElements>
+						<f:FormElement label="{i18n>meetingOfDiscussion}" visible="false">
+							<f:fields>
+								<Input id="TermIdAddTermDialog" valueHelpOnly="true" showSuggestion="true" showValueHelp="true" valueHelpRequest="onTermValueHelpPress"
+									startSuggestion="1"></Input>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+					<f:formElements>
+						<f:FormElement label="{i18n>requestNumber}">
+							<f:fields>
+								<Input id="RequestInput" value="{DpoReqFull}" editable="false"></Input>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+		<beginButton>
+			<Button text="{i18n>changeTermToRequest}" press="onChangeTermOfRequestialogSuccess"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onDestroyDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

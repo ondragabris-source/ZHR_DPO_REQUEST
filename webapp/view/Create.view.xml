@@ -1,0 +1,182 @@
+<mvc:View displayBlock="true" controllerName="ZHR_DPO_REQUEST.controller.Create" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:dnd="sap.ui.core.dnd"
+	xmlns:table="sap.ui.table" xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:libm="zhrdpo.lib.controls.m">
+	<Shell id="shell" appWidthLimited="false">
+		<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="true" toggleHeaderOnTitleClick="true" upperCaseAnchorBar="false">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:heading>
+						<VBox>
+							<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack"/>
+							<Title text="Nová žádost1 / Editace žádosti1" wrapping="true" id="Tittle"/>
+						</VBox>
+					</uxap:heading>
+					<uxap:actions>
+						<uxap:ObjectPageHeaderActionButton text="navToAttch4" type="Emphasized" hideText="false" press="navToAttachmentFour" visible="false"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>saveAsDraft}" type="Emphasized" hideText="false" press="onCreatePress"
+							visible="{ path : 'appModel>/DetailRequestSettings/Role', formatter : '.formatter.falseIfZad_Next'}"/>
+						<uxap:ObjectPageHeaderActionButton type="Transparent" text="{i18n>saveAndSend}" hideText="false" hideIcon="true"
+							visible="{ path : 'appModel>/DetailRequestSettings/RequestSendO', formatter : '.formatter.getBooleanFromString'}" press="onCreatePress1"/>
+					</uxap:actions>
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<uxap:headerContent>
+				<FlexBox fitContainer="true">
+					<VBox class="sapUiLargeMarginEnd">
+						<ObjectStatus title="{i18n>requestNumber}" id="RequestId" text="{DpoReqFull}"/>
+						<ObjectStatus title="{i18n>typeRequestCentralLevel}" text="{ProcessDesc}"/>
+						<ObjectStatus title="{i18n>submitter}" text="{RequestorNameFull}"/>
+						<ObjectStatus title="{i18n>creatorDeputy}" text="{parts: [{path: 'RequestorNameFull'},{path: 'UserNameFull'}], formatter: '.formatter.ifNotSameReturnSecondValue'}"/>
+						<ObjectStatus class="sapUiSmallMarginBottom" text="{StatusDescr}" icon="sap-icon://message-information" state="Information"/>
+					</VBox>
+				</FlexBox>
+			</uxap:headerContent>
+			<uxap:sections>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>basicInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<VBox class="sapUiSmallMargin">
+								<f:Form editable="true">
+									<f:title></f:title>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="2" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1"
+											emptySpanM="1" emptySpanS="1" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="{i18n>theme}">
+													<f:fields>
+														<ComboBox id="ThemeCombobox" items="{path: '/ThemeSet'}" selectionChange="onThemeSelectionChange" required="true" selectedKey="{Theme}"
+															change="handleChange" editable="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; ${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true'}">
+															<core:Item key="{THEME}" text="{THEME_DESC}"/>
+														</ComboBox>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>template}">
+													<f:fields>
+														<ComboBox id="TemplateCombobox" selectionChange="onTemplateSelectionChange" showSecondaryValues="false" selectedKey="{TemplateCode}"
+															required="true" change="handleChange" editable="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; ${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true'}">
+															<core:ListItem key="{TemplateCode}" text="{TemplateDesc}" additionalText="{Process}"/>
+														</ComboBox>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>topicRequest}">
+													<f:fields>
+														<Input value="{Name}" width="100%" id="NameOfRequest" editable="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; ${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true'}" enabled="true" required="true" maxLength="160"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>textRequest}">
+													<f:fields>
+														<TextArea rows="8" width="100%" id="RequestLongText" value="{Text}" editable="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; ${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true'}" enabled="true" required="true"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>URL}" visible="{ path : 'Url', formatter : '.formatter.checkIfIsNotEmpty'}">
+													<f:fields>
+														<Link press="navToAttachmentFour" text="{ path : 'Url', formatter : '.formatter.getRequiredAttchText'}"/>
+														<Input value="" required="true" enabled="false" visible="false" editable="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; ${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true'}"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>prefferedTerm}" visible="{ path : 'ProcessDesc', formatter : '.formatter.falseIfAgreement'}">
+													<f:fields>
+														<Input id="TermIdAddTermDialogDate" value="{ path : 'TermDate', formatter : '.formatter.formateDateToString'}" editable="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; ${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true'}" valueHelpOnly="true"
+															showSuggestion="true" showValueHelp="true" valueHelpRequest="onTermValueHelpPress" startSuggestion="1"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>prefferedTerm}" visible="false">
+													<f:fields>
+														<Input id="TermIdAddTermDialogID" editable="{= !${appModel>/createdFlag} || !!${appModel>/DetailRequestSettings/AddAttachmentO}}" value="{TermId}" enabled="false"/>
+													</f:fields>
+												</f:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>attachments}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection>
+							<UploadCollection id="UploadCollection" maximumFilenameLength="550" maximumFileSize="10" multiple="true" sameFilenameAllowed="false"  uploadEnabled="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' || ${appModel>/DetailRequestSettings/AddAttachmentO} === 'true'}"
+								instantUpload="true" noDataDescription=" " change="onChange" fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed"
+								fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" validationSuccess="beforeUploadStarts" 
+								beforeUploadStarts="onBeforeUploadStarts" uploadUrl="/sap/opu/odata/sap/ZHR_DPO_REQUEST01_SRV/RequestAttchSet" items="{RequestAttchDirSet}">
+								<items>
+									<UploadCollectionItem documentId="{DocId}" fileName="{Filename}" mimeType="{Mimetype}" url="{Link}" enableEdit="false" visibleEdit="false" visibleDelete="true"
+										enableDelete="{= ${appModel>/DetailRequestSettings/RequestEditO} === 'true' &amp;&amp; (${appModel>/DetailRequestSettings/AddAttachmentO} !== 'true' || ${NotYetApproved}) }"/>
+
+																	
+								</items>
+							</UploadCollection>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="true" visible="true" title="{i18n>anotherRequestors}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<table:Table busyIndicatorDelay="0" selectionMode="None" visibleRowCountMode="Auto"
+								rows="{path: 'OtherApproversCopySet', sorter: {path:'Ordernr', descending:false}}" rowSelectionChange="onRowSelectionChange"
+								id="OtherRequestorsTable">
+								<table:extension>
+									<OverflowToolbar>
+										<Title id="tableTitle" level="H2" titleStyle="H4"/>
+										<ToolbarSpacer/>
+										<CheckBox text="{i18n>progressiveApproval}" selected="{ApprovalType}"
+											visible="{ path : 'appModel>/DetailRequestSettings/Role', formatter : '.formatter.falseIfZad_Next'}" enabled="{= !${appModel>/createdFlag} || !${appModel>/DetailRequestSettings/AddAttachmentO}}"/>
+										<Button type="Transparent" press="openCreateAdditionalRequestorDialog" text="{i18n>add}" 
+											enabled='{= !${appModel>/createdFlag} || ${appModel>/DetailRequestSettings/RequestAddConsultantO} === "true" }'/>
+										<Button type="Transparent" press="onSortCoCreators" text="{i18n>changeOrder}"
+											visible="{ parts: [ {path: 'appModel>/DetailRequestSettings/Role'}, {path: 'ApprovalType'} ], formatter: '.formatter.falseIfZad_NextOrProgressiveApprovalOff' }"/>
+									</OverflowToolbar>
+								</table:extension>
+								<table:columns>
+									<table:Column width="75px" visible="{ApprovalType}">
+										<Label text="{i18n>orderNr}"/>
+										<table:template>
+											<Text text="{ path : 'Ordernr', formatter : '.formatter.returnNullIf999'}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="300">
+										<Label text="{i18n>name}"/>
+										<table:template>
+											<Text text="{NameFull}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="150px">
+										<Label text="{i18n>DZC}"/>
+										<table:template>
+											<Text text="{Uname}"/>
+										</table:template>
+									</table:Column>
+									<table:Column width="160px">
+										<Label text="{i18n>organizationalUnit}"/>
+										<table:template>
+											<Text text="{Department}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>role}"/>
+										<table:template>
+											<Text text="{Role}"/>
+										</table:template>
+									</table:Column>
+									<table:Column minWidth="120">
+										<Label text="{i18n>email}"/>
+										<table:template>
+											<Text text="{Email}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</uxap:ObjectPageSubSection>
+						<uxap:ObjectPageSubSection >
+							
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+	</Shell>
+</mvc:View>

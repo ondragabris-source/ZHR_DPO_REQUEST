@@ -1,0 +1,106 @@
+<mvc:View displayBlock="true" controllerName="ZHR_DPO_REQUEST.controller.CreateAgreement" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"
+	xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m" xmlns:table="sap.ui.table">
+	<Shell id="shell" appWidthLimited="false">
+		<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="true" toggleHeaderOnTitleClick="true" upperCaseAnchorBar="false">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:heading>
+						<VBox>
+							<Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" id="NavBackButton"/>
+							<Title text="{i18n>agreementEdit}" wrapping="true"/>
+						</VBox>
+					</uxap:heading>
+					<uxap:actions>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>save}" press="onSavePress" type="Emphasized" hideText="false" visible="true" id="SaveButton"/>
+						<uxap:ObjectPageHeaderActionButton type="Emphasized" text="{i18n>nextStep}" press="onNextStepAgreementDialog" hideText="false" visible="false" id="NextStepButton" visible="{ path : 'appModel>/DetailRequestSettings/RequestNextStepO', formatter : '.formatter.getBooleanFromString'}"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>downloadTemplate}" press="onTemplateClick" type="Emphasized" hideText="false" visible="true" id="TemplateButton"/>
+						<uxap:ObjectPageHeaderActionButton text="{i18n>delete}" press="onDeletePress" type="Emphasized" hideText="false" visible="true" id="DeleteButton"/>
+					</uxap:actions>
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<uxap:headerContent>
+				<FlexBox fitContainer="true">
+					<VBox class="sapUiLargeMarginEnd">
+						<ObjectStatus title="{i18n>agreementId}" text="{AgrService>DpoAgreement}" visible="false"/>
+						<ObjectStatus title="{i18n>agreementName}" text="{AgrService>Name}"/>
+						<ObjectStatus class="sapMObjectStatusLarge" title="{i18n>agreementStatus}" text="{AgrService>StatusDescr}" state="Information"/>
+					</VBox>
+				</FlexBox>
+			</uxap:headerContent>
+			<uxap:sections>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>basicInfo}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<VBox class="sapUiSmallMargin">
+								<f:Form editable="true" id="MainForm">
+									<f:title></f:title>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="2" labelSpanL="2" labelSpanM="3" labelSpanS="2" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+											emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="{i18n>datumUcOd}">
+													<f:fields>
+														<DatePicker dateValue="{path:'AgrService>AgreementDateTo', type:'sap.ui.model.odata.type.Date'}" placeholder=" " visible="true" editable="true" id="TermDate"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>datumUcDo}">
+													<f:fields>
+														<DatePicker dateValue="{path:'AgrService>AgreementDate', type:'sap.ui.model.odata.type.Date'}" placeholder=" " visible="true" editable="true"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>agreementStatus}">
+													<f:fields>
+														<Input value="{AgrService>StatusDescr}" width="100%" editable="false"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>agreementName}">
+													<f:fields>
+														<Input value="{AgrService>Name}" width="100%" editable="true"/>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>effForDep}">
+													<f:fields>
+														<Input value="{AgrService>EffForDep}" width="100%" editable="true"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>template}">
+													<f:fields>
+														<Input value="{AgrService>TemplateDesc}" width="100%" editable="false"/>	 
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>requestNumber}">
+													<f:fields>
+														<Input id="RequestId" value="{AgrService>DpoRequestFull}" width="100%" editable="false"/>	 
+													</f:fields>
+												</f:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection showTitle="false" visible="true" title="{i18n>attachments}">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection >
+							<UploadCollection id="UploadCollection" multiple="true" sameFilenameAllowed="false" instantUpload="true"
+								noDataDescription=" " change="onChange"  terminationEnabled="true"
+								fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+								uploadComplete="onUploadComplete" validationSuccess="beforeUploadStarts" beforeUploadStarts="onBeforeUploadStarts" uploadEnabled="true"
+								uploadUrl="/sap/opu/odata/sap/ZHR_DPO_AGR_SRV/AgreementAttchSet" items="{AgrService>AgreementAttchDirSet}">
+								<items>
+									<UploadCollectionItem documentId="{AgrService>DocId}" fileName="{AgrService>Filename}" mimeType="{AgrService>Mimetype}" url="{AgrService>Link}" enableEdit="false" visibleEdit="false" enableDelete="false"/>
+								</items>
+							</UploadCollection>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+	</Shell>
+</mvc:View>

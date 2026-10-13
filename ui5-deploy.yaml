@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: zhr_dpo_request
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: GW2
+          url: http://smbgw2cs.sap.skoda.vwg:443
+          client: '010'
+        app:
+          name: ZHR_DPO_REQUEST
+          description: DPO Terminy, odbornici /01
+          package: ZHR_DPO_REQUEST
+          transport: GW2K927560
+        exclude:
+          - /test/
+          - /localService/

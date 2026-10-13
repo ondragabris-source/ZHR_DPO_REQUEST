@@ -1,0 +1,198 @@
+<mvc:View controllerName="ZHR_DPO_REQUEST.controller.Master" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:table="sap.ui.table"
+	xmlns="sap.m" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants"
+	xmlns:form="sap.ui.layout.form" xmlns:uxap="sap.uxap" busyIndicatorDelay="0">
+	<f:FlexibleColumnLayout id="flexLayoutMaster" backgroundDesign="Translucent" layout="{appModel>/layout}">
+		<!--layout="TwoColumnsBeginExpanded"-->
+		<f:beginColumnPages>
+			<f:DynamicPage fitContent="true" headerExpanded="true" showFooter="true" toggleHeaderOnTitleClick="true" class="sapUiNoContentPadding">
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<VBox>
+								<Title level="H2" titleStyle="H4" text="{i18n>appTitle} ({appModel>/MasterRequestSettings/RoleDescr})"/>
+							</VBox>
+						</f:heading>
+						<f:actions>
+							<ToolbarSpacer/>
+							<!--{ path : 'appModel>/MasterRequestSettings/RequestDeputyO', formatter : '.oFormatter.getBooleanFromString'}-->
+							<Button text="{i18n>myTasks}" type="Emphasized" press="onTaksPress"/>
+							<Button text="{i18n>terms}" type="Emphasized" press="onTermsPress"/>
+							<Button text="{i18n>agreements}" type="Emphasized" press="onAgreementsPress"
+								visible="{ path : 'appModel>/MasterRequestSettings/AgreementAppO', formatter : '.oFormatter.getBooleanFromString'}"/>
+							<Label text="{i18n>deputyLabel}"/>
+							<ComboBox items="{path: '/CreatorSet'}" change="onCreaterChange" id="CreatorComboBox">
+								<core:ListItem key="{CreatorUname}" text="{CreatorFullName}" additionalText="({CreatorUname})"/>
+							</ComboBox>
+							<Button text="{i18n>setDeputy}" type="Emphasized" press="onSubsitutePress"
+								visible="{ path : 'appModel>/MasterRequestSettings/RequestDeputyO', formatter : '.oFormatter.getBooleanFromString'}"/>
+							<Button icon="sap-icon://refresh" type="Transparent" press="reloadMasterView" visible="false"/>
+							<core:ComponentContainer id="idSupport" width="30px"/>
+							<Button icon="sap-icon://hint" tooltip="{i18n>hint}" type="Transparent" press="onHelpPress" visible="true"/>
+						</f:actions>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:header>
+					<f:DynamicPageHeader pinnable="true">
+						<f:content>
+							<fb:FilterBar id="filterBar" clear="onResetPress" search="onFilter" filterBarExpanded="true" showClearButton="false" showClearOnFB="true"
+								showGoOnFB="true" showRestoreButton="false" showRestoreOnFB="false" showFilterConfiguration="false" useToolbar="false">
+								<fb:filterGroupItems>
+									<fb:FilterGroupItem groupName="G1" name="Creator" label="uname" mandatory="false" partOfCurrentVariant="true" visibleInFilterBar="false">
+										<fb:control>
+											<Input id="CreatorUname" enabled="false"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="DpoReqFull" label="{i18n>requestNumber}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input1"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="Name" label="{i18n>topicRequest}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input2"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="RequestorNameFull" label="{i18n>submitter}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input3"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="Orgeh" label="{i18n>ojShort}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input id="Input4"/>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="Process" label="{i18n>typeRequest}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<ComboBox showSecondaryValues="{appModel>/GetSettings/ShowTechNames}" change="onSearch" items="{path: '/ProcessSet'}">
+												<core:ListItem key="{ProcessType}" text="{Description}" additionalText="({ProcessType})"/>
+											</ComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="Status" label="{i18n>stateRequest}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<ComboBox showSecondaryValues="{appModel>/GetSettings/ShowTechNames}" change="onSearch" items="{path: '/StatusSet'}">
+												<core:ListItem key="{DPO_Status}" text="{Description}" additionalText="({DPO_Status})"/>
+											</ComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="RequestDate" label="{i18n>creationDateRequest}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<DateRangeSelection placeholder="{i18n>enterDateRange}"  change="onSearch" id="Searched"/>
+											<!--	<ComboBox showSecondaryValues="{appModel>/GetSettings/ShowTechNames}" items="{path: '/CodeListSet', filters: [{path: 'CodelistId', operator: 'EQ', value1: 'Eqart'}]}">
+												<core:ListItem key="{CodelistKey}" text="{CodelistValue}" additionalText="{CodelistKey}"/>
+											</ComboBox>-->
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="TermDate" label="{i18n>meetingOfDiscussion}"  mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<DateRangeSelection placeholder="{i18n>enterDateRange}"  change="onSearch"/>
+											<!--	<ComboBox showSecondaryValues="{appModel>/GetSettings/ShowTechNames}" items="{path: '/CodeListSet', filters: [{path: 'CodelistId', operator: 'EQ', value1: 'Eqart'}]}">
+												<core:ListItem key="{CodelistKey}" text="{CodelistValue}" additionalText="{CodelistKey}"/>
+											</ComboBox>-->
+										</fb:control>
+									</fb:FilterGroupItem>
+									<fb:FilterGroupItem groupName="G1" name="TasksUnfinished" label="{i18n>tasksUnfinished}" mandatory="false" partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<ComboBox showSecondaryValues="false" change="onSearch">
+												<core:ListItem key="true" text="{i18n>yes}"/>
+												<core:ListItem key="false" text="{i18n>no}"/>
+											</ComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+								</fb:filterGroupItems>
+							</fb:FilterBar>
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<table:Table busyIndicatorDelay="0" id="table" height="99%"
+						rows="{path: '/RequestDataSet', events: {dataReceived: '.onDataReceivedMasterTable', dataRequested: '.onDataRequestedMasterTable'}}"
+						selectionMode="None" visibleRowCountMode="Auto" rowSelectionChange="onRowSelectionChange">
+						<table:extension>
+							<OverflowToolbar>
+								<Title id="tableTitle" text="{i18n>tableTitleRequest}" level="H2" titleStyle="H4"/>
+								<ToolbarSpacer/>
+								<Button type="Emphasized" press="onCreateRequestClick" text="{i18n>newRequest}"
+									visible="{ path : 'appModel>/MasterRequestSettings/RequestCreateO', formatter : '.oFormatter.getBooleanFromString'}"/>
+							</OverflowToolbar>
+						</table:extension>
+						<table:columns>
+							<table:Column width="100px">
+								<Label text="{i18n>requestNumber}" wrapping="true"/>
+								<table:template>
+									<Text text="{DpoReqFull}" maxLines="2"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="300px">
+								<Label text="{i18n>topicRequest}" wrapping="true"/>
+								<table:template>
+									<Text text="{Name}" maxLines="2"/>
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="120">
+								<Label text="{i18n>submitter}" wrapping="true"/>
+								<table:template>
+									<Text text="{RequestorNameFull}" wrapping="true" maxLines="2"/>
+								</table:template>
+							</table:Column>
+							<table:Column width="100px">
+								<Label text="{i18n>ojShort}" wrapping="true"/>
+								<table:template>
+									<Text text="{Orgeh}" maxLines="2"/>
+								</table:template>
+							</table:Column>
+							<table:Column width="150px">
+								<Label text="{i18n>typeRequest}" wrapping="true"/>
+								<table:template>
+									<Text text="{ProcessDesc}" maxLines="2"/>
+								</table:template>
+							</table:Column>
+							<table:Column width="90px">
+								<Label text="{i18n>creationDateRequest}" wrapping="true"/>
+								<table:template>
+								<Text text="{ path : 'RequestDate', formatter : '.formatter.formateDateToString'}"/>
+
+								</table:template>
+							</table:Column>
+							<table:Column minWidth="120">
+								<Label text="{i18n>stateRequest}" wrapping="true"/>
+								<table:template>
+									<Text text="{StatusDescr}" maxLines="2"/>
+								</table:template>
+							</table:Column>
+							<table:Column width="90px">
+								<Label text="{i18n>meetingOfDiscussion}" wrapping="true"/>
+								<table:template>
+										<Text text="{ path : 'TermDate', formatter : '.formatter.formateDateToString'}"/>
+								</table:template>
+							</table:Column>
+							<table:Column width="110px">
+								<Label text="{i18n>tasksUnfinished}" wrapping="true"/>
+								<table:template>
+									<Text text="{TasksDescr}" maxLines="2"/>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</f:content>
+				<f:footer>
+					<Toolbar>
+						<Text text="{i18n>classified}" wrapping="true"/>
+					</Toolbar>
+				</f:footer>
+			</f:DynamicPage>
+		</f:beginColumnPages>
+		<f:midColumnPages></f:midColumnPages>
+		<f:endColumnPages></f:endColumnPages>
+	</f:FlexibleColumnLayout>
+</mvc:View>

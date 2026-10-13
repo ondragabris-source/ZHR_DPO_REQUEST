@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog showHeader="false">
+		<f:Form editable="true">
+			<f:title>
+				<core:Title text="{i18n>nextStep}"/>
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+					emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="{i18n>statusZadosti}">
+							<f:fields>
+								<Select id="NextStepSelect" >
+									<items>
+										<core:Item text="Krok1" key="Nic"/>
+										<core:Item text="Krok2" key="Pùl"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						
+						<f:FormElement label="{i18n>comment}">
+							<f:fields>
+								<TextArea rows="5"/>
+								
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+		<beginButton>
+			<Button text="{i18n>save}" press="onNextStepConfirmPress"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onDestroyDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

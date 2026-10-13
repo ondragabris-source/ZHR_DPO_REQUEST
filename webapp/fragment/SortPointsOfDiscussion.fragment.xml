@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:dnd="sap.ui.core.dnd">
+	<Dialog title="{i18n>dragAndDrop}" showHeader="false">
+		<Table id="SortPointsOfDiscussionTable" mode="SingleSelectMaster" growing="false" growingThreshold="10" beforeOpenContextMenu="onBeforeOpenContextMenu"
+			items="{path: 'TermService>TermRequestSet' , sorter: {path:'Ordernr', descending:false} , filters: [{path: 'Ordernr', operator: 'NE', value1: '999'}]}" noDataText="No Data">
+			<contextMenu>
+				<Menu>
+					<MenuItem text="Move up" press="moveUp"/>
+					<MenuItem text="Move down" press="moveDown"/>
+				</Menu>
+			</contextMenu>
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="{i18n>dragAndDrop}"/>
+					<ToolbarSpacer/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column hAlign="End" width="6rem">
+					<Text text="{i18n>orderNr}"/>
+				</Column>
+				<Column hAlign="End" width="10rem">
+					<Text text="{i18n>termTime}"/>
+				</Column>
+				<Column hAlign="End" width="10rem">
+					<Text text="{i18n>requestNumber}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>topicOfDiscussion}"/>
+				</Column>
+				<Column hAlign="End" width="6rem" visible="false">
+					<Text text="{i18n>duration}"/>
+				</Column>
+				<Column hAlign="End" width="8rem">
+					<Text text="{i18n>duration}"/>
+				</Column>
+			</columns>
+			<dragDropConfig>
+				<dnd:DragInfo groupName="selected2available" sourceAggregation="items"/>
+				<dnd:DropInfo groupName="available2selected" targetAggregation="items" dropPosition="Between" drop="onDropSelectedProductsTable"/>
+				<dnd:DragDropInfo sourceAggregation="items" targetAggregation="items" dropPosition="Between" drop="onDropSelectedProductsTable"/>
+			</dragDropConfig>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{ path : 'TermService>Ordernr', formatter : '.formatter.toIntPom'}" wrapping="false"/>
+						<Text text="{ path : 'TermService>ReqTime', formatter : '.formatter.formateTimeToString'}"/>
+						<Text text="{TermService>DpoReqFull}" wrapping="false"/>
+						<Text text="{TermService>RequestName}" wrapping="false"/>
+						<Text text="{TermService>Duration}" wrapping="false"/>
+						<ComboBox selectedKey="{TermService>Duration}" change="recalculateTimesPointsOfDiscusions">
+							<core:Item key="00005" text="5"/>
+							<core:Item key="00010" text="10"/>
+							<core:Item key="00015" text="15"/>
+							<core:Item key="00020" text="20"/>
+							<core:Item key="00025" text="25"/>
+							<core:Item key="00030" text="30"/>
+							<core:Item key="00035" text="35"/>
+							<core:Item key="00040" text="40"/>
+							<core:Item key="00045" text="45"/>
+						</ComboBox>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<beginButton>
+			<Button text="{i18n>save}" press="onSortingSuccess"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onCloseDialogResetChanges"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

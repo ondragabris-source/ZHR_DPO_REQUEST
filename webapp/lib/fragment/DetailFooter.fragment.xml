@@ -1,0 +1,12 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+ xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m"
+>
+	<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://save" type="Emphasized" text="Uložit" enabled="{CtrlEdit}" press="onPressSave"/>
+				<Button icon="sap-icon://decline" text="Zavøít" press="onPressClose"></Button>
+			</OverflowToolbar>
+	
+	</core:FragmentDefinition>

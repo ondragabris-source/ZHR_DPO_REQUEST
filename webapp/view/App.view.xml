@@ -1,0 +1,36 @@
+<mvc:View
+	displayBlock="true"
+	controllerName="ZHR_DPO_REQUEST.lib.controller.Base"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:libm="ZHR_DPO_REQUEST.lib.controls.m"
+>
+	<Shell
+		id="shell"
+		appWidthLimited="false"
+	>
+		<Page showHeader="false">
+			<content>
+				<!-- <Button icon="sap-icon://error" text="Meh!" type="Reject"/> -->
+				<VBox>
+					<App id="app">
+						<pages>
+							<!--<Page id="page" title="{i18n>pageTitle}">
+					<content></content>
+				</Page>-->
+						</pages>
+					</App>
+					<libm:MessageButton
+						id="MessageButtonAbsolute"
+						class="messageButtonAbsolute"
+						autoOpen="false"
+					/>
+				</VBox>
+				<!-- <libm:MessageAlert />
+				<core:Icon class="messageIcon" color="Negative" src="sap-icon://alert" size="30px"/> -->
+			</content>
+		</Page>
+	</Shell>
+</mvc:View>

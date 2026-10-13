@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:Grid defaultSpan="L3 M5 S12" class="sapUiSmallMarginTop">
+		<l:content>
+			<Input id="memDialogPerson" type="Text" placeholder="{i18n>dialog.Number}" class="sapUiMediumMarginEnd" submit="onSearchPerson"/>
+			<Input id="memDialogName" type="Text" placeholder="{i18n>dialog.Name}" class="sapUiMediumMarginEnd" submit="onSearchPerson"/>
+			<!--<Input id="memDialogSurname" type="Text" placeholder="{i18n>dialog.Surname}" class="sapUiMediumMarginEnd" submit="onSearchPerson"/>-->
+			<Button iconFirst="true" type="Default" press="onSearchPerson" icon="sap-icon://search" class="sapUiMediumMarginEnd"></Button>
+		</l:content>
+	</l:Grid>
+	<Table items="{ path: '/MembersAddSet', sorter: { path: 'Pernr' } }">
+		<columns>
+			<Column hAlign="Left">
+				<Text text="{i18n>dialog.Pernr}"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+				<Text text="{i18n>dialog.Name}"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left"></Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+				<Text text="{i18n>dialog.Unit}"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem press="onChoicePerson" type="Navigation">
+				<cells>
+					<Text text="{Pernr}"/>
+					<Text text="{Fullname}"/>
+					<Text text="{StatusMember}"></Text>
+					<Text text="{UnitShort}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

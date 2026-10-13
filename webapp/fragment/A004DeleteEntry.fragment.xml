@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog showHeader="true" title="{i18n>deleteRowTittle}" id="DeleteA004Dialog">
+		<Text text="{i18n>deleteRowText}" />
+		<beginButton>
+			<Button text="{i18n>delete}" press="deleteItemSet2" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onCloseDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

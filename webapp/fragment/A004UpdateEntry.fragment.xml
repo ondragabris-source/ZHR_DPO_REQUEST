@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog showHeader="false" id="UpdateItemDialog">
+		<VBox class="sapUiSmallMargin">
+			<f:SimpleForm editable="true" layout="ColumnLayout" title="{i18n>update}">
+				<f:content>
+					<Label text="{i18n>typeOfRow}"/>
+					<ComboBox editable="{appModel>/A004Settings/ExtEditFl}"
+						items="{path: 'A004>/ItemTypeSet', sorter: [ { path: 'TypeOrder', descending: 'false', group: false } ]}" required="true"
+						selectedKey="{A004>AttachItemType}">
+						<core:Item key="{A004>A004it}" text="{A004>Description}"/>
+					</ComboBox>
+					<Label text="{i18n>Pernr}"/>
+					<Input editable="{appModel>/A004Settings/ExtEditFl}" value="{ path : 'A004>Pernr', formatter : '.formatter.removeLeadingZeros'}" required="true" showValueHelp="true" valueHelpOnly="true"
+						valueHelpRequest="onPeopleValueHelpRequestUpdate"/>
+					<Label text="{i18n>Fm03}"/>
+					<Input editable="{appModel>/A004Settings/ExtEditFl}" value="{A004>Fm03}" required="true" id="pom33" showValueHelp="true"
+						valueHelpOnly="true" valueHelpRequest="onFmValueHelpRequestUpdate"/>
+					<Label text="{i18n>JmenoPrijmeni03}"/>
+					<Input value="{A004>JmenoPrijmeni03}" editable="false" required="true" id="pom11"/>
+					<Label text="{i18n>NazevPozice03}"/>
+					<Input value="{A004>NazevPozice03}" editable="false" required="true" id="pom44"/>
+					<Label text="{i18n>Stredisko03}"/>
+					<Input value="{A004>Stredisko03}" editable="false" required="true" id="pom22"/>
+					<Label text="{i18n>Utvar03}"/>
+					<Input value="{A004>Utvar03}" editable="false" required="true" id="pom55"/>
+					<Label text="{i18n>TerminZruseni}"/>
+					<DatePicker editable="{appModel>/A004Settings/ExtEditFl}" required="true"
+						value="{path: 'A004>TerminZruseni', formatOptions: {pattern: 'yyyyMMdd', strictParsing: true}}" valueFormat="yyyyMMdd" placeholder=" "
+						visible="true"/>
+					<Label text="{i18n>ReseniNavrh}"/>
+					<Input maxLength="255" editable="{appModel>/A004Settings/ExtEditFl}" required="true" value="{A004>ReseniNavrh}"/>
+					<Label text="{i18n>Cinnosti}"/>
+					<Input maxLength="255" editable="{appModel>/A004Settings/ExtEditFl}" required="true" value="{A004>Cinnosti}"/>
+					<Label text="{i18n>Procent}"/>
+					<Input maxLength="120" editable="{appModel>/A004Settings/ExtEditFl}" required="true" value="{A004>Procent}"/>
+					<Label text="{i18n>Opatreni}"/>
+					<Input maxLength="255" editable="{appModel>/A004Settings/ExtEditFl}" required="true" value="{A004>Opatreni}"/>
+					<Label text="{i18n>OpatreniDetail}"/>
+					<Input maxLength="255" editable="{appModel>/A004Settings/ExtEditFl}" required="true" value="{A004>OpatreniDetail}"/>
+					<Label text="{i18n>ZahajeniProjednani}"/>
+					<Input value="{A004>ZahajeniProjednani}" valueHelpOnly="true" id="TermDateInput" visible="{ path : 'appModel>/A004Settings/ExtEditFl', formatter : '.formatter.returnReverseBool'}"
+						showSuggestion="true" showValueHelp="true" valueHelpRequest="onTermValueHelpPress" startSuggestion="1"/>
+					<Label text="{i18n>DoplnInf}"/>
+					<Input value="{A004>DoplnInf}" visible="{ path : 'appModel>/A004Settings/ExtEditFl', formatter : '.formatter.returnReverseBool'}"/>
+					<Label text="{i18n>StavProjednaniFm}"/>
+					<Input value="{A004>StavProjednaniFm}" visible="{ path : 'appModel>/A004Settings/ExtEditFl', formatter : '.formatter.returnReverseBool'}"/>
+					<Label text="{i18n>NavrhZruseniFm}" />
+					<DatePicker value="{path: 'A004>NavrhZruseniFm', formatOptions: {pattern: 'yyyyMMdd', strictParsing: true}}" valueFormat="yyyyMMdd" 
+						placeholder=" " editable="true" visible="{ path : 'appModel>/A004Settings/ExtEditFl', formatter : '.formatter.returnReverseBool'}"/>
+					<Label text="{i18n>OdsouhlReseni}"/>
+					<Input value="{A004>OdsouhlReseni}" visible="{ path : 'appModel>/A004Settings/ExtEditFl', formatter : '.formatter.returnReverseBool'}"/>
+					<Label text="{i18n>UkonceniProj}"/>
+					<Input value="{A004>UkonceniProj}" visible="{ path : 'appModel>/A004Settings/ExtEditFl', formatter : '.formatter.returnReverseBool'}"/>
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<beginButton>
+			<Button text="{i18n>save}" press="onUpdateSavePress"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>close}" press="onCloseDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
